@@ -7,13 +7,19 @@ import java.lang.reflect.*;
 
 public class RunTests {
 
+    public static int inputs(String class_name, int priority,int subset){
 
-    public static int inputs(String class_name, int priority){
+        int output=priority;
 
-
+        return output;
     }
 
-    public int
+    public double[] run_tests(){
+
+    double results[] = new double[0];
+
+        return results;
+    }
 
     public static void main(String[] args) throws Exception {
         int passed = 0, failed = 0, before = 0, after = 0, ignore = 0;

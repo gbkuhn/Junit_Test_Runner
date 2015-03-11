@@ -13,10 +13,5 @@ public class CLI_menu {
 
     }
 
-    static void results(){
-
-        
-    }
-
 
 }

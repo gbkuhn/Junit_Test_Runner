@@ -1,7 +1,12 @@
 /**
  * Created by geoffreykuhn on 3/10/15.
  */
-public class Results {
+public class Results extends RunTests {
 
-    public int
+    public int report(){
+
+        int buffer = 0;
+
+      return buffer;
+    }
 }
