@@ -6,6 +6,15 @@ import org.junit.Test;
 import java.lang.reflect.*;
 
 public class RunTests {
+
+
+    public static int inputs(String class_name, int priority){
+
+
+    }
+
+    public int
+
     public static void main(String[] args) throws Exception {
         int passed = 0, failed = 0, before = 0, after = 0, ignore = 0;
 
@@ -19,7 +28,7 @@ public class RunTests {
                 try {
                     m.invoke(null);
                     before++;
-                    passed++;
+                    //passed++;
                 } catch (Throwable ex) {
                     System.out.printf("Test %s failed: %s %n", m, ex.getCause());
                     failed++;
@@ -30,7 +39,7 @@ public class RunTests {
                 try {
                     m.invoke(null);
                     after++;
-                    passed++;
+                    //passed++;
                 } catch (Throwable ex) {
                     System.out.printf("Test %s failed: %s %n", m, ex.getCause());
                     failed++;
