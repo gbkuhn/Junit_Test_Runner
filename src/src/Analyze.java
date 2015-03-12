@@ -7,13 +7,17 @@ public class Analyze extends Test_class {
     public static int analyze(){
         int buffer = 0;
 
-        return buffer;
+        //return buffer;
+
+        throw new RuntimeException("Analyze exception");
     }
 
     public static boolean determine(){
 
         boolean outcome = false;
-        return outcome;
+       // return outcome;
+        throw new RuntimeException("Determine exception");
+
     }
 
 }

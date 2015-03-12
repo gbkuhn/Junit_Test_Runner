@@ -18,6 +18,11 @@ public class Test_class {
         //will return as after+1
     }
 
+    @Priority
+    public static void priority_method(){
+        //will return as after+1
+    }
+
     @Test
     public static void pass_method_2(){
     //Will return as a pass

@@ -11,14 +11,18 @@ public class RunTests {
 
         int output=priority;
 
-        return output;
+      //  return output;
+        throw new RuntimeException("iIputs exception");
+
     }
 
     public double[] run_tests(){
 
     double results[] = new double[0];
 
-        return results;
+       // return results;
+        throw new RuntimeException("run_tests exception");
+
     }
 
     public static void main(String[] args) throws Exception {

@@ -4,9 +4,10 @@
 public class Results extends RunTests {
 
     public int report(){
-
         int buffer = 0;
 
-      return buffer;
+      //return buffer;
+       throw new RuntimeException("Report exception");
+
     }
 }

@@ -5,11 +5,13 @@ public class CLI_menu {
 
     static void menu(){
 
+        throw new RuntimeException("Menu exception");
 
     }
 
     static void exit(){
 
+        throw new RuntimeException("Menu exit exception");
 
     }
 
