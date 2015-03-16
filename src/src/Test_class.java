@@ -33,6 +33,7 @@ public class Test_class {
     }
 
     @Test public static void failed_method_4() {
+
         throw new RuntimeException("Intentionally Failed");
     }
 
@@ -46,6 +47,7 @@ public class Test_class {
     }
 
     @Test public static void method_7() {
+
         throw new RuntimeException("Intentionally Failed");
     }
 

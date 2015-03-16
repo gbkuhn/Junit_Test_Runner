@@ -8,27 +8,21 @@ import java.lang.reflect.*;
 public class RunTests {
 
     public static int inputs(String class_name, int priority,int subset){
-
         int output=priority;
-
-      //  return output;
+        //return output;
         throw new RuntimeException("iIputs exception");
-
     }
 
     public double[] run_tests(){
-
-    double results[] = new double[0];
-
-       // return results;
+        double results[] = new double[0];
+       //return results;
         throw new RuntimeException("run_tests exception");
-
     }
 
     public static void main(String[] args) throws Exception {
-        int passed = 0, failed = 0, before = 0, after = 0, ignore = 0;
+        int passed=0, failed=0, before=0, after=0, ignore=0;
 
-        for (Method m : Class.forName(args[0]).getMethods()) {
+        for (Method m:Class.forName(args[0]).getMethods()) {
 
             if (m.isAnnotationPresent(Ignore.class)) {
                     ignore++;
