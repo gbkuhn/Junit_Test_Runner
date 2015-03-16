@@ -6,6 +6,7 @@ import org.junit.Test;
 /**
  * Created by geoffreykuhn on 3/10/15.
  */
+
 public class Test_class {
 
     @Before

@@ -5,6 +5,13 @@ import org.junit.Test;
 
 import java.lang.reflect.*;
 
+class Annotated {
+    @Priority(info = "information goes here")
+    public void test_method(String my_param) {
+        System.out.println("Parameter" + my_param);
+    }
+}
+
 public class RunTests {
 
     public static int inputs(String class_name, int priority,int subset){
@@ -21,6 +28,12 @@ public class RunTests {
 
     public static void main(String[] args) throws Exception {
         int passed=0, failed=0, before=0, after=0, ignore=0;
+
+        ///
+        PriorityAnnotationParser priority_parser = new PriorityAnnotationParser();
+        priority_parser.parse(Annotated.class);
+        ///
+
 
         for (Method m:Class.forName(args[0]).getMethods()) {
 

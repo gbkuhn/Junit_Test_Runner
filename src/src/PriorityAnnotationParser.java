@@ -3,13 +3,13 @@
 import java.lang.reflect.Method;
 
 public class PriorityAnnotationParser {
-    public void parse(Class<?> clazz) throws Exception {
-        Method[] methods = clazz.getMethods();
+    public void parse(Class<?> class_buffer) throws Exception {
+        Method[] methods = class_buffer.getMethods();
         int pass = 0;
         int fail = 0;
         for (Method method : methods) {
             if (method.isAnnotationPresent(Priority.class)) {
-                // this is how you access to the attributes
+                //access to the attributes
                 Priority test = method.getAnnotation(Priority.class);
                 Class expected = test.expected();
                 try {
@@ -26,3 +26,5 @@ public class PriorityAnnotationParser {
         }
     }
 }
+
+
