@@ -9,11 +9,18 @@ public class PriorityAnnotationParser {
         int fail = 0;
         for (Method method : methods) {
             if (method.isAnnotationPresent(Priority.class)) {
+                // this is how you access to the attributes
+                Priority test = method.getAnnotation(Priority.class);
+                Class expected = test.expected();
                 try {
                     method.invoke(null);
                     pass++;
                 } catch (Exception e) {
-                    fail++;
+                    if (Exception.class != expected) {
+                        fail++;
+                    } else {
+                        pass++;
+                    }
                 }
             }
         }
