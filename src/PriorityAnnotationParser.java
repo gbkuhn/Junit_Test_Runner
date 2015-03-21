@@ -2,13 +2,20 @@
 
 import java.lang.reflect.Method;
 
+//Geoff, what I have planned:
+//We just go through and detect each Priority and return the names of the priority methods
+//then see how many methods we can run
+
 public class PriorityAnnotationParser {
-    public void parse(Class<?> class_buffer) throws Exception {
+    public String[] parse(Class<?> class_buffer) throws Exception {
         Method[] methods = class_buffer.getMethods();
-        int pass = 0;
-        int fail = 0;
+        int index = 0;
+        String[] priorityMethods = new String[methods.length];
         for (Method method : methods) {
             if (method.isAnnotationPresent(Priority.class)) {
+                priorityMethods[index] = method.getName();
+                index++;
+                /*
                 //access to the attributes
                 Priority test = method.getAnnotation(Priority.class);
                 Class expected = test.expected();
@@ -22,8 +29,10 @@ public class PriorityAnnotationParser {
                         pass++;
                     }
                 }
+                */
             }
         }
+        return priorityMethods;
     }
 }
 

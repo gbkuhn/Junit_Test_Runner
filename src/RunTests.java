@@ -3,6 +3,7 @@ import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Request;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
@@ -34,12 +35,20 @@ public class RunTests {
 
         /*
         PriorityAnnotationParser priority_parser = new PriorityAnnotationParser();
-        priority_parser.parse(Annotated.class);
+        priorityMethods = priority_parser.parse(Annotated.class);
         */
+
+        //for every priority found and while resources allow{
+        //Request request = Request.method(priorityMethods[i]);
+        //Result result = new JUnitCore().run(request);
+        //then do all the stuff below with the result, adding it to a running total
+
         Result result = JUnitCore.runClasses(TestSuite.class);
         ignore = result.getIgnoreCount();
         failed = result.getFailureCount();
         passed = result.getRunCount()-failed;
+
+        //and then run the non-priority methods doing the last bit above, until we run out of resources
 
 
         /*for (Method m:Class.forName(args[0]).getMethods()) {
@@ -79,9 +88,8 @@ public class RunTests {
                     failed++;
                 }
             }
-        }
+        }*/
 
-        */
         System.out.printf("Passed: %d \nFailed: %d \nIgnored: %d \nBefore: %d \nAfter: %d", passed, failed, ignore, before, after);
     }
 }
