@@ -3,13 +3,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)//will retain this annotation at JVM runetime, allows for java reflection
+import static java.lang.annotation.ElementType.*;
+
+/**
+ * Created by geoffreykuhn on 3/22/15.
+ */
+@Retention( value = RetentionPolicy.RUNTIME)
+@Target( value = { METHOD})
 public @interface Priority {
 
-    String info() default "default info";
-
-    Class expected();
-    //Class expected();
+    public String value() default "";
 }
-

@@ -1,67 +1,45 @@
+import com.sun.net.httpserver.Authenticator;
+import junit.framework.TestSuite;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Request;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 
 import java.lang.reflect.*;
-/*
-class Annotated {
-    //@Priority(info = "information goes here")
-    public void test_method(String my_param) {
-        System.out.println("Parameter" + my_param);
-    }
-}
-*/
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
+import org.junit.runner.notification.RunNotifier;
+
 public class RunTests {
 
-    public static int inputs(String class_name, int priority,int subset){
-        int output=priority;
-        //return output;
-        throw new RuntimeException("iIputs exception");
-    }
-
-    public double[] run_tests(){
-        double results[] = new double[0];
-
-        throw new RuntimeException("run_tests exception");
-    }
-
     public static void main(String[] args) throws Exception {
-        int passed=0, failed=0, before=0, after=0, ignore=0;
+//completely functional but of no use right now
+        Result result = JUnitCore.runClasses(SuiteClass_0.class);
+        Result result2 =JUnitCore.runClasses(SuiteClass_0.class);
 
-        /*
-        PriorityAnnotationParser priority_parser = new PriorityAnnotationParser();
-        priorityMethods = priority_parser.parse(Annotated.class);
-        */
-
-        //for every priority found and while resources allow{
-        //Request request = Request.method(priorityMethods[i]);
-        //Result result = new JUnitCore().run(request);
-        //then do all the stuff below with the result, adding it to a running total
-
-        Result result = JUnitCore.runClasses(TestSuite.class);
-        ignore = result.getIgnoreCount();
-        failed = result.getFailureCount();
-        passed = result.getRunCount()-failed;
-
-        //and then run the non-priority methods doing the last bit above, until we run out of resources
+        for (Failure failure : result.getFailures()) {
+                System.out.println(failure.toString());
+            }
+            System.out.println(result.wasSuccessful());
+///
 
 
-        /*for (Method m:Class.forName(args[0]).getMethods()) {
+        int passed = 0, failed = 0, before = 0, after = 0, ignore = 0;
+
+        for (Method m : Class.forName(args[0]).getMethods()) {
 
             if (m.isAnnotationPresent(Ignore.class)) {
-                    ignore++;
+                ignore++;
             }
 
             if (m.isAnnotationPresent(Before.class)) {
                 try {
                     m.invoke(null);
                     before++;
-                    //passed++;
+                    passed++;
                 } catch (Throwable ex) {
                     System.out.printf("Test %s failed: %s %n", m, ex.getCause());
                     failed++;
@@ -72,7 +50,7 @@ public class RunTests {
                 try {
                     m.invoke(null);
                     after++;
-                    //passed++;
+                    passed++;
                 } catch (Throwable ex) {
                     System.out.printf("Test %s failed: %s %n", m, ex.getCause());
                     failed++;
@@ -88,8 +66,9 @@ public class RunTests {
                     failed++;
                 }
             }
-        }*/
-
+        }
         System.out.printf("Passed: %d \nFailed: %d \nIgnored: %d \nBefore: %d \nAfter: %d", passed, failed, ignore, before, after);
+
     }
+
 }

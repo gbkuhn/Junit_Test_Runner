@@ -6,7 +6,6 @@ import org.junit.Test;
 /**
  * Created by geoffreykuhn on 3/10/15.
  */
-
 public class Test_class {
 
     @Before
@@ -18,24 +17,19 @@ public class Test_class {
     public void after_method_1(){
         //will return as after+1
     }
-/*
-    @Priority
-    public static void priority_method(){
-        //will return as after+1
-    }
-*/
+
     @Test
     public void pass_method_2(){
-    //Will return as a pass
+        //Will return as a pass
     }
-
+    
+    @Priority
     public void empty_method_3(){
-    //empty, not a pass or a fail
+        //empty, not a pass or a fail
     }
 
-    @Test (expected = RuntimeException.class)
+    @Test
     public void failed_method_4() {
-
         throw new RuntimeException("Intentionally Failed");
     }
 
@@ -45,12 +39,10 @@ public class Test_class {
     }
 
     public void empty_method_6(){
-    //empty, not a pass or a fail
+        //empty, not a pass or a fail
     }
 
-    @Test (expected = RuntimeException.class)
-    public void method_7() {
-
+    @Test public void method_7() {
         throw new RuntimeException("Intentionally Failed");
     }
 
