@@ -3,11 +3,18 @@
  */
 public class Results extends RunTests {
 
-    public int report(){
-        int buffer = 0;
+
+    public void report(Integer[] results_arr){
+
+        for(int i=results_arr.length; i<5; i++){
+
+            System.out.print(results_arr[i]+ " ");
+
+        }
 
       //return buffer;
-       throw new RuntimeException("Report exception");
+       //throw new RuntimeException("Report exception");
 
+        //return 0;
     }
 }

@@ -22,10 +22,10 @@ public class Test_class {
     public void pass_method_2(){
         //Will return as a pass
     }
-    
+
     @Priority
     public void empty_method_3(){
-        //empty, not a pass or a fail
+        //will return a pass
     }
 
     @Test

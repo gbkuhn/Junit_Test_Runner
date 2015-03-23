@@ -15,8 +15,90 @@ import org.junit.runner.notification.RunNotifier;
 
 public class RunTests {
 
+    static Integer[] results_arr;
+    public static int passed=0, failed=0, before=0, after=0, ignore=0,priority=0;
+
     public static void main(String[] args) throws Exception {
-/*completely functional but of no use right now
+
+        Results results = new Results();
+
+        Object obj0 = Class.forName(args[0]).newInstance();
+
+        for (Method m:Class.forName(args[0]).getMethods()) {
+            if (m.isAnnotationPresent(Ignore.class)) {
+                try {
+                    ignore++;
+                    results_arr[0]=ignore;
+                } catch (Exception e) {
+                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
+                    failed++;
+                }
+            }
+        }
+
+
+        for (Method m : Class.forName(args[0]).getMethods()) {
+            if (m.isAnnotationPresent(Test.class)) {
+                try {
+                    m.invoke(obj0);
+                    passed++;
+                    results_arr[1]=passed;
+                } catch (Exception e) {
+                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
+                    failed++;
+                }
+            }
+        }
+
+
+        for (Method m : Class.forName(args[0]).getMethods()) {
+            if (m.isAnnotationPresent(Before.class)) {
+                try {
+                    m.invoke(obj0);
+                    passed++;
+                    before++;
+                    results_arr[2]=before;
+                } catch (Exception e) {
+                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
+                    failed++;
+                }
+            }
+        }
+
+
+        for (Method m : Class.forName(args[0]).getMethods()) {
+            if (m.isAnnotationPresent(After.class)) {
+                try {
+                    m.invoke(obj0);
+                    passed++;
+                    after++;
+                    results_arr[3]=after;
+                } catch (Exception e) {
+                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
+                    failed++;
+                }
+            }
+        }
+
+
+        for (Method m : Class.forName(args[0]).getMethods()) {
+            if (m.isAnnotationPresent(Priority.class)) {
+                try {
+                    m.invoke(obj0);
+                    passed++;
+                    priority++;
+                    results_arr[4]=priority;
+                } catch (Exception e) {
+                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
+                    failed++;
+                }
+            }
+        }
+
+//        results.report(results_arr); //print put the report
+
+        /*
+//completely functional but of no use right now
         Result result = JUnitCore.runClasses(SuiteClass_0.class);
         Result result2 =JUnitCore.runClasses(SuiteClass_0.class);
 
@@ -25,50 +107,6 @@ public class RunTests {
             }
             System.out.println(result.wasSuccessful());
 */
-
-
-        int passed = 0, failed = 0, before = 0, after = 0, ignore = 0, priority = 0;
-
-        for (Method m : Class.forName(args[0]).getMethods()) {
-
-            if (m.isAnnotationPresent(Ignore.class)) {
-                ignore++;
-            }
-
-            if (m.isAnnotationPresent(Before.class)) {
-                try {
-                    m.invoke(null);
-                    before++;
-                    passed++;
-                } catch (Throwable ex) {
-                    System.out.printf("@Before test %s failed: %s %n", m, ex.getCause());
-                    failed++;
-                }
-            }
-
-            if (m.isAnnotationPresent(After.class)) {
-                try {
-                    m.invoke(null);
-                    after++;
-                    passed++;
-                } catch (Throwable ex) {
-                    System.out.printf("@After test %s failed: %s %n", m, ex.getCause());
-                    failed++;
-                }
-            }
-
-            if (m.isAnnotationPresent(Test.class)) {
-                try {
-                    m.invoke(null);
-                    passed++;
-                } catch (Throwable ex) {
-                    System.out.printf("Test %s failed: %s %n", m, ex.getCause());
-                    failed++;
-                }
-            }
-
-
-        }
         System.out.printf("Passed: %d \nFailed: %d \nIgnored: %d \nBefore: %d \nAfter: %d \nPriority %d", passed, failed, ignore, before, after, priority);
 
     }
