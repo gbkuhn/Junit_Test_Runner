@@ -16,7 +16,7 @@ import org.junit.runner.notification.RunNotifier;
 public class RunTests {
 
     public static void main(String[] args) throws Exception {
-//completely functional but of no use right now
+/*completely functional but of no use right now
         Result result = JUnitCore.runClasses(SuiteClass_0.class);
         Result result2 =JUnitCore.runClasses(SuiteClass_0.class);
 
@@ -24,10 +24,10 @@ public class RunTests {
                 System.out.println(failure.toString());
             }
             System.out.println(result.wasSuccessful());
-///
+*/
 
 
-        int passed = 0, failed = 0, before = 0, after = 0, ignore = 0;
+        int passed = 0, failed = 0, before = 0, after = 0, ignore = 0, priority = 0;
 
         for (Method m : Class.forName(args[0]).getMethods()) {
 
@@ -41,7 +41,7 @@ public class RunTests {
                     before++;
                     passed++;
                 } catch (Throwable ex) {
-                    System.out.printf("Test %s failed: %s %n", m, ex.getCause());
+                    System.out.printf("@Before test %s failed: %s %n", m, ex.getCause());
                     failed++;
                 }
             }
@@ -52,7 +52,7 @@ public class RunTests {
                     after++;
                     passed++;
                 } catch (Throwable ex) {
-                    System.out.printf("Test %s failed: %s %n", m, ex.getCause());
+                    System.out.printf("@After test %s failed: %s %n", m, ex.getCause());
                     failed++;
                 }
             }
@@ -66,8 +66,10 @@ public class RunTests {
                     failed++;
                 }
             }
+
+
         }
-        System.out.printf("Passed: %d \nFailed: %d \nIgnored: %d \nBefore: %d \nAfter: %d", passed, failed, ignore, before, after);
+        System.out.printf("Passed: %d \nFailed: %d \nIgnored: %d \nBefore: %d \nAfter: %d \nPriority %d", passed, failed, ignore, before, after, priority);
 
     }
 
