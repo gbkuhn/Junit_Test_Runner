@@ -5,7 +5,9 @@ public class CLI_menu {
 
     static void menu(){
 
-        throw new RuntimeException("Menu exception");
+        System.out.println("Which subset would you like to run? subset 0 is preselected for now \n\n");
+
+       // throw new RuntimeException("Menu exception");
 
     }
 

@@ -18,12 +18,13 @@ public class Test_class {
         //will return as after+1
     }
 
+    @Subset(subset_value=0)
     @Test
     public void pass_method_2(){
         //Will return as a pass
     }
 
-    @Priority
+    @Priority(priority_bool=true)
     public void empty_method_3(){
         //will return a pass
     }

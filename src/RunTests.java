@@ -15,14 +15,34 @@ import org.junit.runner.notification.RunNotifier;
 
 public class RunTests {
 
+
+
+
     static Integer[] results_arr;
     public static int passed=0, failed=0, before=0, after=0, ignore=0,priority=0;
 
+    CLI_menu CLI_menu_obj= new CLI_menu();
+    Results results = new Results();
+
     public static void main(String[] args) throws Exception {
 
-        Results results = new Results();
+        CLI_menu.menu();
 
         Object obj0 = Class.forName(args[0]).newInstance();
+
+
+        for (Method m:Class.forName(args[0]).getMethods()) {
+            if (m.isAnnotationPresent(Subset.class)) { //subset test
+                try {
+                    System.out.println("SUBSET IS FUNCTIONAl");
+                    m.invoke(obj0);
+                    passed++;
+                } catch (Exception e) {
+                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
+                    failed++;
+                }
+            }
+        }
 
         for (Method m:Class.forName(args[0]).getMethods()) {
             if (m.isAnnotationPresent(Ignore.class)) {

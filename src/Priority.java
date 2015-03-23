@@ -12,5 +12,5 @@ import static java.lang.annotation.ElementType.*;
 @Target( value = { METHOD})
 public @interface Priority {
 
-    public String value() default "";
+    boolean priority_bool() default false;
 }
