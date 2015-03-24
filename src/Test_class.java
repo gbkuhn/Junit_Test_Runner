@@ -6,6 +6,13 @@ import org.junit.Test;
 /**
  * Created by geoffreykuhn on 3/10/15.
  */
+
+@Runner_info(
+        priority = Runner_info.Priority.HIGH,
+        written_by = "Kuhn",
+        tags = {"first tag","second tag" }
+)
+
 public class Test_class {
 
     @Before
@@ -18,13 +25,12 @@ public class Test_class {
         //will return as after+1
     }
 
-    @Subset(subset_value=0)
     @Test
     public void pass_method_2(){
         //Will return as a pass
     }
 
-    @Priority(priority_bool=true)
+    @Priority
     public void empty_method_3(){
         //will return a pass
     }

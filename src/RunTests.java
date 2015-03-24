@@ -1,17 +1,8 @@
-import com.sun.net.httpserver.Authenticator;
-import junit.framework.TestSuite;
-import org.junit.Before;
-import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.lang.reflect.*;
 
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
-import org.junit.runner.notification.RunListener;
-import org.junit.runner.notification.RunNotifier;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 public class RunTests {
 
@@ -23,14 +14,78 @@ public class RunTests {
 
     CLI_menu CLI_menu_obj= new CLI_menu();
     Results results = new Results();
-
-    public static void main(String[] args) throws Exception {
-
+    /*
         CLI_menu.menu();
 
         Object obj0 = Class.forName(args[0]).newInstance();
+*/
+            public static void main(String[] args) throws Exception {
 
+                System.out.println("Testing Runner Starting..");
 
+                int passed = 0, failed = 0, count = 0, ignore = 0;
+
+                Class<Test_class> obj = Test_class.class;
+
+                // Process @TesterInfo
+                if (obj.isAnnotationPresent(Runner_info.class)) {
+
+                    Annotation annotation = obj.getAnnotation(Runner_info.class);
+                    Runner_info testerInfo = (Runner_info) annotation;
+
+                    System.out.printf("%nPriority: %s", testerInfo.priority());
+                    System.out.printf("%nWrittenby: %s", testerInfo.written_by());
+                    System.out.printf("%nTags: ");
+
+                    int tagLength = testerInfo.tags().length;
+                    for (String tag : testerInfo.tags()) {
+                        if (tagLength > 1) {
+                            System.out.print(tag + ", ");
+                        } else {
+                            System.out.print(tag);
+                        }
+                        tagLength--;
+                    }
+
+                    System.out.printf("%nLastModified :%s%n%n", testerInfo.modified_date());
+
+                }
+
+                // Process @Test
+                for (Method method : obj.getDeclaredMethods()) {
+
+                    // if method is annotated with @Test
+                    if (method.isAnnotationPresent(Test.class)) {
+
+                        Annotation annotation = method.getAnnotation(Test.class);
+                        Test test = (Test) annotation;
+
+                        // if enabled = true (default)
+                       // if (test.enabled()) {
+
+                            try {
+                                method.invoke(obj.newInstance());
+                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                passed++;
+                            } catch (Throwable ex) {
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                failed++;
+                            }
+                        /*
+                        } else {
+                            System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
+                            ignore++;
+                        }
+                        */
+                    }
+
+                }
+                System.out.printf("%nReport: Total: %d, Passed: %d, Failed: %d, Ignored: %d%n", count, passed, failed, ignore);
+
+            }
+        }
+
+/*
         for (Method m:Class.forName(args[0]).getMethods()) {
             if (m.isAnnotationPresent(Subset.class)) { //subset test
                 try {
@@ -115,6 +170,7 @@ public class RunTests {
             }
         }
 
+*/
 //        results.report(results_arr); //print put the report
 
         /*
@@ -127,8 +183,11 @@ public class RunTests {
             }
             System.out.println(result.wasSuccessful());
 */
+
+/*
         System.out.printf("Passed: %d \nFailed: %d \nIgnored: %d \nBefore: %d \nAfter: %d \nPriority %d", passed, failed, ignore, before, after, priority);
 
     }
 
 }
+*/
