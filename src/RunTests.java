@@ -4,67 +4,65 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 
+import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 public class RunTests {
 
-
-
-
-    static Integer[] results_arr;
-    public static int passed=0, failed=0, before=0, after=0, ignore=0,priority=0;
-
     CLI_menu CLI_menu_obj= new CLI_menu();
     Results results = new Results();
-    /*
-        CLI_menu.menu();
 
+    
+/*
         Object obj0 = Class.forName(args[0]).newInstance();
 */
             public static void main(String[] args) throws Exception {
 
-                System.out.println("Testing Runner Starting..");
+                int num_runs = CLI_menu.menu();
 
+                System.out.println("Testing Runner Starting..");
                 int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0;
 
-                Class<Test_class> obj = Test_class.class;
+                for(int runner_loop=0;runner_loop<=num_runs;runner_loop++) {
 
-                // Process @TesterInfo
-                if (obj.isAnnotationPresent(Runner_info.class)) {
+                    Class<Test_class> obj = Test_class.class;
 
-                    Annotation annotation = obj.getAnnotation(Runner_info.class);
-                    Runner_info testerInfo = (Runner_info) annotation;
+                    // Process @TesterInfo
+                    if (obj.isAnnotationPresent(Runner_info.class)) {
 
-                    System.out.printf("%nPriority: %s", testerInfo.priority());
-                    System.out.printf("%nWrittenby: %s", testerInfo.written_by());
-                    System.out.printf("%nTags: ");
+                        Annotation annotation = obj.getAnnotation(Runner_info.class);
+                        Runner_info testerInfo = (Runner_info) annotation;
 
-                    int tagLength = testerInfo.tags().length;
-                    for (String tag : testerInfo.tags()) {
-                        if (tagLength > 1) {
-                            System.out.print(tag + ", ");
-                        } else {
-                            System.out.print(tag);
+                        System.out.printf("%nPriority: %s", testerInfo.priority());
+                        System.out.printf("%nWrittenby: %s", testerInfo.written_by());
+                        System.out.printf("%nTags: ");
+
+                        int tagLength = testerInfo.tags().length;
+                        for (String tag : testerInfo.tags()) {
+                            if (tagLength > 1) {
+                                System.out.print(tag + ", ");
+                            } else {
+                                System.out.print(tag);
+                            }
+                            tagLength--;
                         }
-                        tagLength--;
+
+                        System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
+
                     }
 
-                    System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
+                    // Process @Test
+                    for (Method method : obj.getDeclaredMethods()) {
 
-                }
+                        // if method is annotated with @Test
+                        if (method.isAnnotationPresent(Test.class)) {
 
-                // Process @Test
-                for (Method method : obj.getDeclaredMethods()) {
+                            Annotation annotation = method.getAnnotation(Test.class);
+                            Test test = (Test) annotation;
 
-                    // if method is annotated with @Test
-                    if (method.isAnnotationPresent(Test.class)) {
-
-                        Annotation annotation = method.getAnnotation(Test.class);
-                        Test test = (Test) annotation;
-
-                        // if enabled = true (default)
-                       // if (test.enabled()) {
+                            // if enabled = true (default)
+                            // if (test.enabled()) {
 
                             try {
                                 method.invoke(obj.newInstance());
@@ -80,89 +78,89 @@ public class RunTests {
                             ignore++;
                         }
                         */
-                    }
-                    //process @before
-                    if (method.isAnnotationPresent(Before.class)) {
-
-                        Annotation annotation = method.getAnnotation(Before.class);
-                        Before test = (Before) annotation;
-
-                        // if enabled = true (default)
-                        // if (test.enabled()) {
-
-                        try {
-                            method.invoke(obj.newInstance());
-                            System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
-                            passed++;
-                            before++;
-                        } catch (Throwable ex) {
-                            System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
-                            failed++;
-                            before++;
                         }
+                        //process @before
+                        if (method.isAnnotationPresent(Before.class)) {
+
+                            Annotation annotation = method.getAnnotation(Before.class);
+                            Before test = (Before) annotation;
+
+                            // if enabled = true (default)
+                            // if (test.enabled()) {
+
+                            try {
+                                method.invoke(obj.newInstance());
+                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                passed++;
+                                before++;
+                            } catch (Throwable ex) {
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                failed++;
+                                before++;
+                            }
                         /*
                         } else {
                             System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
                             ignore++;
                         }
                         */
-                    }
-                    //process @after
-                    if (method.isAnnotationPresent(After.class)) {
-
-                        Annotation annotation = method.getAnnotation(After.class);
-                        After test = (After) annotation;
-
-                        // if enabled = true (default)
-                        // if (test.enabled()) {
-
-                        try {
-                            method.invoke(obj.newInstance());
-                            System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
-                            passed++;
-                            after++;
-                        } catch (Throwable ex) {
-                            System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
-                            failed++;
-                            after++;
-
                         }
+                        //process @after
+                        if (method.isAnnotationPresent(After.class)) {
+
+                            Annotation annotation = method.getAnnotation(After.class);
+                            After test = (After) annotation;
+
+                            // if enabled = true (default)
+                            // if (test.enabled()) {
+
+                            try {
+                                method.invoke(obj.newInstance());
+                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                passed++;
+                                after++;
+                            } catch (Throwable ex) {
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                failed++;
+                                after++;
+
+                            }
                         /*
                         } else {
                             System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
                             ignore++;
                         }
                         */
-                    }
-                    //process @after
-                    if (method.isAnnotationPresent(Ignore.class)) {
-
-                        Annotation annotation = method.getAnnotation(Ignore.class);
-                        Ignore test = (Ignore) annotation;
-
-                        // if enabled = true (default)
-                        // if (test.enabled()) {
-
-                        try {
-                            method.invoke(obj.newInstance());
-                            System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
-                            ignore++;
-                        } catch (Throwable ex) {
-                            System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
-                            failed++;
-                            ignore++;
                         }
+                        //process @after
+                        if (method.isAnnotationPresent(Ignore.class)) {
+
+                            Annotation annotation = method.getAnnotation(Ignore.class);
+                            Ignore test = (Ignore) annotation;
+
+                            // if enabled = true (default)
+                            // if (test.enabled()) {
+
+                            try {
+                                method.invoke(obj.newInstance());
+                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                ignore++;
+                            } catch (Throwable ex) {
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                failed++;
+                                ignore++;
+                            }
                         /*
                         } else {
                             System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
                             ignore++;
                         }
                         */
-                    }
+                        }
 
+                    }
+                    System.out.printf("%nReport: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d%n", count, passed, failed, ignore, before, after);
                 }
-                System.out.printf("%nReport: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d%n", count, passed, failed, ignore, before, after);
-
             }
         }
 
