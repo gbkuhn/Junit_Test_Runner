@@ -1,5 +1,6 @@
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -49,7 +50,7 @@ public class RunTests {
                         tagLength--;
                     }
 
-                    System.out.printf("%nLastModified :%s%n%n", testerInfo.modified_date());
+                    System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
 
                 }
 
@@ -80,7 +81,7 @@ public class RunTests {
                         }
                         */
                     }
-                    //next annotation
+                    //process @before
                     if (method.isAnnotationPresent(Before.class)) {
 
                         Annotation annotation = method.getAnnotation(Before.class);
@@ -97,6 +98,7 @@ public class RunTests {
                         } catch (Throwable ex) {
                             System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                             failed++;
+                            before++;
                         }
                         /*
                         } else {
@@ -105,7 +107,7 @@ public class RunTests {
                         }
                         */
                     }
-
+                    //process @after
                     if (method.isAnnotationPresent(After.class)) {
 
                         Annotation annotation = method.getAnnotation(After.class);
@@ -122,6 +124,33 @@ public class RunTests {
                         } catch (Throwable ex) {
                             System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                             failed++;
+                            after++;
+
+                        }
+                        /*
+                        } else {
+                            System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
+                            ignore++;
+                        }
+                        */
+                    }
+                    //process @after
+                    if (method.isAnnotationPresent(Ignore.class)) {
+
+                        Annotation annotation = method.getAnnotation(Ignore.class);
+                        Ignore test = (Ignore) annotation;
+
+                        // if enabled = true (default)
+                        // if (test.enabled()) {
+
+                        try {
+                            method.invoke(obj.newInstance());
+                            System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                            ignore++;
+                        } catch (Throwable ex) {
+                            System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                            failed++;
+                            ignore++;
                         }
                         /*
                         } else {
