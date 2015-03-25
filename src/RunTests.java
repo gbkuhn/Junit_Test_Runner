@@ -13,7 +13,7 @@ public class RunTests {
     CLI_menu CLI_menu_obj= new CLI_menu();
     Results results = new Results();
 
-    
+
 /*
         Object obj0 = Class.forName(args[0]).newInstance();
 */
@@ -22,35 +22,35 @@ public class RunTests {
                 int num_runs = CLI_menu.menu();
 
                 System.out.println("Testing Runner Starting..");
-                int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0;
+                int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0;
+
+                Class<Test_class> obj = Test_class.class;
+
+                // Process @TesterInfo
+                if (obj.isAnnotationPresent(Runner_info.class)) {
+
+                    Annotation annotation = obj.getAnnotation(Runner_info.class);
+                    Runner_info testerInfo = (Runner_info) annotation;
+
+                    System.out.printf("%nPriority: %s", testerInfo.priority());
+                    System.out.printf("%nWrittenby: %s", testerInfo.written_by());
+                    System.out.printf("%nTags: ");
+
+                    int tagLength = testerInfo.tags().length;
+                    for (String tag : testerInfo.tags()) {
+                        if (tagLength > 1) {
+                            System.out.print(tag + ", ");
+                        } else {
+                            System.out.print(tag);
+                        }
+                        tagLength--;
+                    }
+
+                    System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
+
+                }
 
                 for(int runner_loop=0;runner_loop<=num_runs;runner_loop++) {
-
-                    Class<Test_class> obj = Test_class.class;
-
-                    // Process @TesterInfo
-                    if (obj.isAnnotationPresent(Runner_info.class)) {
-
-                        Annotation annotation = obj.getAnnotation(Runner_info.class);
-                        Runner_info testerInfo = (Runner_info) annotation;
-
-                        System.out.printf("%nPriority: %s", testerInfo.priority());
-                        System.out.printf("%nWrittenby: %s", testerInfo.written_by());
-                        System.out.printf("%nTags: ");
-
-                        int tagLength = testerInfo.tags().length;
-                        for (String tag : testerInfo.tags()) {
-                            if (tagLength > 1) {
-                                System.out.print(tag + ", ");
-                            } else {
-                                System.out.print(tag);
-                            }
-                            tagLength--;
-                        }
-
-                        System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
-
-                    }
 
                     // Process @Test
                     for (Method method : obj.getDeclaredMethods()) {
@@ -158,8 +158,33 @@ public class RunTests {
                         */
                         }
 
+                        if (method.isAnnotationPresent(Desired.class)) {
+
+                            Annotation annotation = method.getAnnotation(Desired.class);
+                            Desired test = (Desired) annotation;
+
+                            // if enabled = true (default)
+                            // if (test.enabled()) {
+
+                            try {
+                                method.invoke(obj.newInstance());
+                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                desired++;
+                                passed++;
+                            } catch (Throwable ex) {
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                failed++;
+                            }
+                        /*
+                        } else {
+                            System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
+                            ignore++;
+                        }
+                        */
+                        }
+
                     }
-                    System.out.printf("%nReport: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d%n", count, passed, failed, ignore, before, after);
+                    System.out.printf("%nReport: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d, Desired: %d%n", count, passed, failed, ignore, before, after, desired);
                 }
             }
         }

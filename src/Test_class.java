@@ -30,7 +30,7 @@ public class Test_class {
         //Will return as a pass
     }
 
-    @Priority
+    @Desired
     public void empty_method_3(){
         //will return a pass
     }
