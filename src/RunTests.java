@@ -13,13 +13,15 @@ public class RunTests{
 
     public static int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0;
     public static int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0;
+    public static int num_runs = CLI_menu.menu();
+    public static int num_runs_buffer = num_runs;
+
 
     /*
         Object obj0 = Class.forName(args[0]).newInstance();
 */
             public static void main(String[] args) throws Exception {
 
-                int num_runs = CLI_menu.menu();
 
                 System.out.println("Testing Runner Starting...");
 
@@ -203,10 +205,12 @@ public class RunTests{
                     }
 
                     Results.subset_report();
+
                     Results.reset_values();
 
                 }
                 Results.final_report();
+                Results.percentages();
             }
         }
 
