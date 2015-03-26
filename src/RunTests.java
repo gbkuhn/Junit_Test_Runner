@@ -3,8 +3,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
-import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
@@ -13,20 +11,24 @@ public class RunTests {
     CLI_menu CLI_menu_obj= new CLI_menu();
     Results results = new Results();
 
-
-/*
+    /*
         Object obj0 = Class.forName(args[0]).newInstance();
 */
             public static void main(String[] args) throws Exception {
 
                 int num_runs = CLI_menu.menu();
 
-                System.out.println("Testing Runner Starting..");
+                System.out.println("Testing Runner Starting...");
                 int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0;
+
+                int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0;
 
                 Class<Test_class> obj = Test_class.class;
 
+                Analyze.display_info(obj);
+
                 // Process @TesterInfo
+                /*
                 if (obj.isAnnotationPresent(Runner_info.class)) {
 
                     Annotation annotation = obj.getAnnotation(Runner_info.class);
@@ -36,25 +38,26 @@ public class RunTests {
                     System.out.printf("%nWrittenby: %s", testerInfo.written_by());
                     System.out.printf("%nTags: ");
 
-                    int tagLength = testerInfo.tags().length;
+                    int tag_size = testerInfo.tags().length;
                     for (String tag : testerInfo.tags()) {
-                        if (tagLength > 1) {
+                        if (tag_size>1) {
                             System.out.print(tag + ", ");
                         } else {
                             System.out.print(tag);
                         }
-                        tagLength--;
+                        tag_size--;
                     }
-
                     System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
-
                 }
+                */
 
-                for(int runner_loop=0;runner_loop<=num_runs;runner_loop++) {
+                for(int runner_loop=0;runner_loop<=num_runs-1;runner_loop++) {
 
                     // Process @Test
                     for (Method method : obj.getDeclaredMethods()) {
 
+                        Analyze.test_process(method, obj,count,passed,passed_subset,failed,failed_subset);
+                        /*
                         // if method is annotated with @Test
                         if (method.isAnnotationPresent(Test.class)) {
 
@@ -68,17 +71,16 @@ public class RunTests {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
                                 passed++;
+                                passed_subset++;
                             } catch (Throwable ex) {
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
+                                failed_subset++;
                             }
-                        /*
-                        } else {
-                            System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
-                            ignore++;
+
                         }
                         */
-                        }
+
                         //process @before
                         if (method.isAnnotationPresent(Before.class)) {
 
@@ -92,11 +94,15 @@ public class RunTests {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
                                 passed++;
+                                passed_subset++;
                                 before++;
+                                before_subset++;
                             } catch (Throwable ex) {
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
+                                failed_subset++;
                                 before++;
+                                before_subset++;
                             }
                         /*
                         } else {
@@ -118,11 +124,15 @@ public class RunTests {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
                                 passed++;
+                                passed_subset++;
                                 after++;
+                                after_subset++;
                             } catch (Throwable ex) {
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
+                                failed_subset++;
                                 after++;
+                                after_subset++;
 
                             }
                         /*
@@ -145,10 +155,12 @@ public class RunTests {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
                                 ignore++;
+                                ignore_subset++;
                             } catch (Throwable ex) {
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
                                 ignore++;
+                                ignore_subset++;
                             }
                         /*
                         } else {
@@ -170,10 +182,13 @@ public class RunTests {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
                                 desired++;
+                                desired_subset++;
                                 passed++;
+                                passed_subset++;
                             } catch (Throwable ex) {
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
+                                failed_subset++;
                             }
                         /*
                         } else {
@@ -182,10 +197,17 @@ public class RunTests {
                         }
                         */
                         }
-
                     }
-                    System.out.printf("%nReport: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d, Desired: %d%n", count, passed, failed, ignore, before, after, desired);
+                    System.out.printf("%n-->Subset Report: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d, Desired: %d%n\n", count_subset, passed_subset, failed_subset, ignore_subset, before_subset, after_subset, desired_subset);
+                    passed_subset = 0;
+                    failed_subset = 0;
+                    count_subset = 0;
+                    ignore_subset = 0;
+                    before_subset = 0;
+                    after_subset = 0;
+                    desired_subset = 0;
                 }
+                System.out.printf("%n-->Final Report: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d, Desired: %d%n", count, passed, failed, ignore, before, after, desired);
             }
         }
 
@@ -196,77 +218,6 @@ public class RunTests {
                     System.out.println("SUBSET IS FUNCTIONAl");
                     m.invoke(obj0);
                     passed++;
-                } catch (Exception e) {
-                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
-                    failed++;
-                }
-            }
-        }
-
-        for (Method m:Class.forName(args[0]).getMethods()) {
-            if (m.isAnnotationPresent(Ignore.class)) {
-                try {
-                    ignore++;
-                    results_arr[0]=ignore;
-                } catch (Exception e) {
-                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
-                    failed++;
-                }
-            }
-        }
-
-
-        for (Method m : Class.forName(args[0]).getMethods()) {
-            if (m.isAnnotationPresent(Test.class)) {
-                try {
-                    m.invoke(obj0);
-                    passed++;
-                    results_arr[1]=passed;
-                } catch (Exception e) {
-                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
-                    failed++;
-                }
-            }
-        }
-
-
-        for (Method m : Class.forName(args[0]).getMethods()) {
-            if (m.isAnnotationPresent(Before.class)) {
-                try {
-                    m.invoke(obj0);
-                    passed++;
-                    before++;
-                    results_arr[2]=before;
-                } catch (Exception e) {
-                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
-                    failed++;
-                }
-            }
-        }
-
-
-        for (Method m : Class.forName(args[0]).getMethods()) {
-            if (m.isAnnotationPresent(After.class)) {
-                try {
-                    m.invoke(obj0);
-                    passed++;
-                    after++;
-                    results_arr[3]=after;
-                } catch (Exception e) {
-                    System.out.printf("Test %s failed: %s\n", m, e.getCause());
-                    failed++;
-                }
-            }
-        }
-
-
-        for (Method m : Class.forName(args[0]).getMethods()) {
-            if (m.isAnnotationPresent(Priority.class)) {
-                try {
-                    m.invoke(obj0);
-                    passed++;
-                    priority++;
-                    results_arr[4]=priority;
                 } catch (Exception e) {
                     System.out.printf("Test %s failed: %s\n", m, e.getCause());
                     failed++;
