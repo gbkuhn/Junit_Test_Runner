@@ -6,10 +6,13 @@ import org.junit.Test;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-public class RunTests {
+public class RunTests{
 
     CLI_menu CLI_menu_obj= new CLI_menu();
     Results results = new Results();
+
+    public static int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0;
+    public static int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0;
 
     /*
         Object obj0 = Class.forName(args[0]).newInstance();
@@ -19,9 +22,8 @@ public class RunTests {
                 int num_runs = CLI_menu.menu();
 
                 System.out.println("Testing Runner Starting...");
-                int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0;
 
-                int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0;
+                //int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0;
 
                 Class<Test_class> obj = Test_class.class;
 
@@ -55,9 +57,16 @@ public class RunTests {
 
                     // Process @Test
                     for (Method method : obj.getDeclaredMethods()) {
-
-                        Analyze.test_process(method, obj,count,passed,passed_subset,failed,failed_subset);
 /*
+                        Analyze.test_process(method, obj,count,passed,passed_subset,failed,failed_subset);
+
+                        passed = Analyze.get_passed();
+                        passed_subset = Analyze.get_passed_subset();
+
+                        failed=Analyze.get_failed();
+                        failed_subset=Analyze.get_failed_subset();
+*/
+
                         // if method is annotated with @Test
                         if (method.isAnnotationPresent(Test.class)) {
 
@@ -79,7 +88,8 @@ public class RunTests {
                             }
 
                         }
-*/
+
+
 
                         //process @before
                         if (method.isAnnotationPresent(Before.class)) {
@@ -164,12 +174,7 @@ public class RunTests {
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
 
                             }
-                        /*
-                        } else {
-                            System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
-                            ignore++;
-                        }
-                        */
+
                         }
 
                         if (method.isAnnotationPresent(Desired.class)) {
@@ -193,24 +198,15 @@ public class RunTests {
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
 
                             }
-                        /*
-                        } else {
-                            System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
-                            ignore++;
-                        }
-                        */
+
                         }
                     }
-                    System.out.printf("%n-->Subset Report: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d, Desired: %d%n\n", count_subset, passed_subset, failed_subset, ignore_subset, before_subset, after_subset, desired_subset);
-                    passed_subset = 0;
-                    failed_subset = 0;
-                    count_subset = 0;
-                    ignore_subset = 0;
-                    before_subset = 0;
-                    after_subset = 0;
-                    desired_subset = 0;
+
+                    Results.subset_report();
+                    Results.reset_values();
+
                 }
-                System.out.printf("%n-->Final Report: Total: %d, Passed: %d, Failed: %d, Ignored: %d, Before: %d, After: %d, Desired: %d%n", count, passed, failed, ignore, before, after, desired);
+                Results.final_report();
             }
         }
 

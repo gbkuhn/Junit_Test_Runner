@@ -2,24 +2,15 @@ import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 /**
  * Created by geoffreykuhn on 3/10/15.
  */
 
-/*
-class Values {
-    private int passed;
-    private int failed;
-    private int failed_subset;
-
-    public Values(int passed, int failed, int failed_subset) {
-    }
-}
-*/
-public class Analyze extends Test_class {
-
-
+public class Analyze extends Test_class{
+    public static int passed_subset, failed_subset, count_subset, ignore_subset, before_subset, after_subset, desired_subset;
+    public static int passed, failed, count, ignore, before, after, desired;
 
     public static void display_info(Class obj){
 
@@ -47,7 +38,10 @@ public class Analyze extends Test_class {
 
     }
 
-    public int test_process(Method method, Class obj, int count, int passed, int passed_subset, int failed, int failed_subset){
+    public static void test_process(Method method, Class obj, int count, int passed, int passed_subset, int failed, int failed_subset){
+
+
+        //ArrayList<Integer> return_list = new ArrayList<Integer>();
 
         if (method.isAnnotationPresent(Test.class)) {
 
@@ -66,7 +60,6 @@ public class Analyze extends Test_class {
                 failed++;
                 failed_subset++;
                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
-
             }
                         /*
                         } else {
@@ -74,9 +67,34 @@ public class Analyze extends Test_class {
                             ignore++;
                         }
                         */
+
         }
-        //return new Values(passed,failed,failed_subset);
     }
+    public static void set_passed(int passed_buf){
+
+        passed=passed_buf;
+    }
+
+    public static int get_passed(){
+
+        return passed;
+    }
+
+    public static int get_passed_subset(){
+
+        return passed_subset;
+    }
+
+    public static int get_failed(){
+
+        return failed;
+    }
+
+    public static int get_failed_subset(){
+
+        return failed_subset;
+    }
+
 
     public static int analyze(){
         int buffer = 0;
