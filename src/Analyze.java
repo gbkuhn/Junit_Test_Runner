@@ -6,7 +6,19 @@ import java.lang.reflect.Method;
 /**
  * Created by geoffreykuhn on 3/10/15.
  */
+
+/*
+class Values {
+    private int passed;
+    private int failed;
+    private int failed_subset;
+
+    public Values(int passed, int failed, int failed_subset) {
+    }
+}
+*/
 public class Analyze extends Test_class {
+
 
 
     public static void display_info(Class obj){
@@ -35,12 +47,12 @@ public class Analyze extends Test_class {
 
     }
 
-    public static void test_process(Method method, Class obj, int count, int passed, int passed_subset, int failed, int failed_subset){
+    public int test_process(Method method, Class obj, int count, int passed, int passed_subset, int failed, int failed_subset){
 
         if (method.isAnnotationPresent(Test.class)) {
 
             Annotation annotation = method.getAnnotation(Test.class);
-            Test test = (Test) annotation;
+            Test test = (Test)annotation;
 
             // if enabled = true (default)
             // if (test.enabled()) {
@@ -51,9 +63,10 @@ public class Analyze extends Test_class {
                 passed++;
                 passed_subset++;
             } catch (Throwable ex) {
-                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                 failed++;
                 failed_subset++;
+                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+
             }
                         /*
                         } else {
@@ -62,7 +75,7 @@ public class Analyze extends Test_class {
                         }
                         */
         }
-
+        //return new Values(passed,failed,failed_subset);
     }
 
     public static int analyze(){

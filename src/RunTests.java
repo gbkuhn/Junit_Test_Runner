@@ -57,7 +57,7 @@ public class RunTests {
                     for (Method method : obj.getDeclaredMethods()) {
 
                         Analyze.test_process(method, obj,count,passed,passed_subset,failed,failed_subset);
-                        /*
+/*
                         // if method is annotated with @Test
                         if (method.isAnnotationPresent(Test.class)) {
 
@@ -79,7 +79,7 @@ public class RunTests {
                             }
 
                         }
-                        */
+*/
 
                         //process @before
                         if (method.isAnnotationPresent(Before.class)) {
@@ -98,11 +98,11 @@ public class RunTests {
                                 before++;
                                 before_subset++;
                             } catch (Throwable ex) {
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
                                 failed_subset++;
                                 before++;
                                 before_subset++;
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                             }
                         /*
                         } else {
@@ -128,11 +128,12 @@ public class RunTests {
                                 after++;
                                 after_subset++;
                             } catch (Throwable ex) {
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
                                 failed_subset++;
                                 after++;
                                 after_subset++;
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+
 
                             }
                         /*
@@ -157,10 +158,11 @@ public class RunTests {
                                 ignore++;
                                 ignore_subset++;
                             } catch (Throwable ex) {
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
                                 ignore++;
                                 ignore_subset++;
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+
                             }
                         /*
                         } else {
@@ -186,9 +188,10 @@ public class RunTests {
                                 passed++;
                                 passed_subset++;
                             } catch (Throwable ex) {
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
                                 failed_subset++;
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+
                             }
                         /*
                         } else {
