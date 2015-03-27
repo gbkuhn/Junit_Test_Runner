@@ -22,16 +22,19 @@ public class ResultsTest {
 
     @Test
     public void testReset_values(){
-        assertEquals(count_subset,count_subset_sum);
+        passed_subset = Results.reset_values();
+        assertEquals(passed_subset,0);
     }
 
     @Test
     public void testFinal_report(){
 
+        boolean check = Results.final_report();
+        assertTrue(check);
     }
 
     @Test
     public void testPercentages(){
-
+        assertTrue(Results.percentages());
     }
 }
