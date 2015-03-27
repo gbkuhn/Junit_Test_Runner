@@ -15,8 +15,6 @@ public class RunTests{
     public static int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0;
     public static int num_runs = CLI_menu.menu();
     public static int num_runs_buffer = num_runs;
-
-
     /*
         Object obj0 = Class.forName(args[0]).newInstance();
 */
@@ -55,7 +53,7 @@ public class RunTests{
                 }
                 */
 
-                for(int runner_loop=0;runner_loop<=num_runs-1;runner_loop++) {
+               // for(int runner_loop=0;runner_loop<=num_runs-1;runner_loop++) {
 
                     // Process @Test
                     for (Method method : obj.getDeclaredMethods()) {
@@ -90,8 +88,6 @@ public class RunTests{
                             }
 
                         }
-
-
 
                         //process @before
                         if (method.isAnnotationPresent(Before.class)) {
@@ -208,7 +204,7 @@ public class RunTests{
 
                     Results.reset_values();
 
-                }
+                //}
                 Results.final_report();
                 Results.percentages();
             }

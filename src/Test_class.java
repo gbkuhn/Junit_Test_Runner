@@ -7,6 +7,8 @@ import org.junit.Test;
  * Created by geoffreykuhn on 3/10/15.
  */
 
+//THIS CLASS IS JUST FOR TESTING THE RUNNER
+
 @Runner_info(
         priority = Runner_info.Priority.HIGH,
         written_by = "Kuhn",
