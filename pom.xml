@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.fgcu</groupId>
-  <artifactId>median-finder</artifactId>
+  <artifactId>Junit_Test_Runner</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Junit_Test_RUunner</name>
+  <name>Junit_Test_Runner</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
