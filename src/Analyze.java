@@ -54,6 +54,20 @@ public class Analyze extends Test_class{
         return total_test_count;
     }
 
+    public static int num_of_desired(Class<Test_class> obj){
+
+        int desired_count=0;
+        for (Method method : obj.getDeclaredMethods()) {
+
+            if ((method.isAnnotationPresent(Desired.class))){
+
+                desired_count++;
+            }
+
+        }
+        return desired_count;
+    }
+
     public static void test_process(Method method, Class obj, int count, int passed, int passed_subset, int failed, int failed_subset){
 
 
