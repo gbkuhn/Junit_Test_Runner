@@ -1,3 +1,5 @@
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
@@ -36,6 +38,20 @@ public class Analyze extends Test_class{
             System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
         }
 
+    }
+
+    public static int num_of_tests(Class<Test_class> obj){
+
+        int total_test_count=0;
+        for (Method method : obj.getDeclaredMethods()) {
+
+            if (method.isAnnotationPresent(Test.class)||(method.isAnnotationPresent(Before.class))||(method.isAnnotationPresent(After.class))||(method.isAnnotationPresent(Desired.class))){
+
+                total_test_count++;
+            }
+
+        }
+        return total_test_count;
     }
 
     public static void test_process(Method method, Class obj, int count, int passed, int passed_subset, int failed, int failed_subset){
