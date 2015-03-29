@@ -63,43 +63,11 @@ public class Analyze extends Test_class{
 
                 desired_count++;
             }
-
         }
         return desired_count;
     }
 
-    public static void test_process(Method method, Class obj, int count, int passed, int passed_subset, int failed, int failed_subset){
-
-
-        //ArrayList<Integer> return_list = new ArrayList<Integer>();
-
-        if (method.isAnnotationPresent(Test.class)) {
-
-            Annotation annotation = method.getAnnotation(Test.class);
-            Test test = (Test)annotation;
-
-            // if enabled = true (default)
-            // if (test.enabled()) {
-
-            try {
-                method.invoke(obj.newInstance());
-                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
-                passed++;
-                passed_subset++;
-            } catch (Throwable ex) {
-                failed++;
-                failed_subset++;
-                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
-            }
-                        /*
-                        } else {
-                            System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
-                            ignore++;
-                        }
-                        */
-
-        }
-    }
+  
     public static void set_passed(int passed_buf){
 
         passed=passed_buf;

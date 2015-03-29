@@ -46,7 +46,6 @@ public class RunTests{
 
                 Analyze.display_info(obj);
 
-
                 for(int runner_loop=0;runner_loop<=num_runs-1;runner_loop++) {
 
                     // Process @Test
