@@ -55,7 +55,7 @@ public class Results extends RunTests {
         double before_perc = num_runs_buffer/before_subset_sum;
         double after_perc = num_runs_buffer/after_subset_sum;
         double desired_perc = 0;//        double desired_perc = num_runs_buffer/desired_subset_sum;
-return true;
+        return true;
 
         //System.out.printf("%n-->Percentages: Total: %f, Passed: %f, Failed: %f, Ignored: %f, Before: %f, After: %f, Desired: %f%n", count_perc, passed_perc, failed_perc, 0, before_perc, after_perc, desired_perc);
 

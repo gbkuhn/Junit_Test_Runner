@@ -1,4 +1,5 @@
 package test;
+import main.Analyze;
 import main.Desired;
 import main.RunTests;
 import main.Test_class;
@@ -7,6 +8,7 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Method;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,33 +48,29 @@ public class AnalyzeTest {
 	
 	@Test
 	public void set_passed(){
-/*
-		 int a = 10;
-		    Class firstClass = new Class();
-		    firstClass.setValue(10);
-		    int value = firstClass.getValue();
-		    Assert.assertEquals(value, a);
-		*/
-		//assertEquals(passed,passed_buf)
-	       // passed=passed_buf;
+		int buffer =10;
+		Analyze.set_passed(buffer);
+		int value = Analyze.get_passed();
+		assertEquals(value,buffer);
 	 }
 	
 	@Test
 	public void get_passed_subset(){
-
-	    //return passed_subset;
-	    }
+		int buffer = Analyze.get_passed_subset();
+		assertTrue("return passed subset is out of range:" + buffer,0<=buffer&&buffer<=500);
+		}
 	
 	@Test
 	public void get_failed(){
-
-	    //return failed;
-	    }
+		int buffer = Analyze.get_failed();
+		assertTrue("return total failed is out of range:" + buffer,0<=buffer&&buffer<=500);	    
+		}
+	
 	@Test
 	public void get_failed_subset(){
-
-	     //return failed_subset;
-	    }
+		int buffer = Analyze.get_failed_subset();
+		assertTrue("return failed subset is out of range:" + buffer,0<=buffer&&buffer<=500);
+}
 
 	@Test
 	public void analyze(){
@@ -80,7 +78,6 @@ public class AnalyzeTest {
 
 	        //return buffer;
 
-	     throw new RuntimeException("Analyze exception");
 	    }
 	
 	@Test
@@ -88,7 +85,6 @@ public class AnalyzeTest {
 
 	        boolean outcome = false;
 	       // return outcome;
-	        throw new RuntimeException("Determine exception");
 
 	    }
 }

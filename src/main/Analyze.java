@@ -95,13 +95,13 @@ public class Analyze extends Test_class{
     }
 
 
-    public static int analyze(){
-        int buffer = 0;
+    public static boolean analyze(){
+       boolean flag =true;
 
         //return buffer;
 
-        throw new RuntimeException("Analyze exception");
-    }
+       	return true;
+   }
 
     public static boolean determine(){
 
