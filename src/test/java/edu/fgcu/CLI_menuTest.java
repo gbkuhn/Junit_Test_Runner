@@ -12,8 +12,9 @@ public class CLI_menuTest  {
     public void testMenu(){
     	int buffer  = CLI_menu.menu();
 
-		assertTrue("return CLI loops is out of range:" + buffer,0<=buffer&&buffer<=500);
-        
+		//assertEquals(0,buffer);
+        assertTrue("return CLI loops is out of range:" + buffer,0<=buffer&&buffer<=500);
+
     }
 
     @Test
