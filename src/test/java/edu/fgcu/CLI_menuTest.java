@@ -1,7 +1,7 @@
-package test.java.edu.fgcu.Junit_Test_Runner;
+package test.java.edu.fgcu;
 import org.junit.Test;
 
-import main.java.edu.fgcu.Junit_Test_Runner.CLI_menu;
+import main.java.edu.fgcu.CLI_menu;
 
 import static org.junit.Assert.*;
 

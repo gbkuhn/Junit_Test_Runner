@@ -1,4 +1,4 @@
-package main.java.edu.fgcu.Junit_Test_Runner;
+package main.java.edu.fgcu;
 /**
  * Created by dmajo_000 on 3/20/2015.
  */

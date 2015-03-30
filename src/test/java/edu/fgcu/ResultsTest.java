@@ -1,6 +1,6 @@
-package test.java.edu.fgcu.Junit_Test_Runner;
+package test.java.edu.fgcu;
 import org.junit.Test;
-import main.java.edu.fgcu.Junit_Test_Runner.Results;
+import main.java.edu.fgcu.Results;
 
 
 import static org.junit.Assert.*;
