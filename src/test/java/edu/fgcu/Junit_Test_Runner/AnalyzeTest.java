@@ -1,8 +1,9 @@
-package test;
-import main.Analyze;
-import main.Desired;
-import main.RunTests;
-import main.Test_class;
+package test.java.edu.fgcu.Junit_Test_Runner;
+
+import main.java.edu.fgcu.Junit_Test_Runner.Analyze;
+import main.java.edu.fgcu.Junit_Test_Runner.Desired;
+import main.java.edu.fgcu.Junit_Test_Runner.RunTests;
+import main.java.edu.fgcu.Junit_Test_Runner.Test_class;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;

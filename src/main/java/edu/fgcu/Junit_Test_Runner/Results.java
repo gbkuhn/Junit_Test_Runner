@@ -1,4 +1,4 @@
-package main;
+package main.java.edu.fgcu.Junit_Test_Runner;
 import org.junit.Test;
 import org.junit.Assert;
 import org.junit.Test;
