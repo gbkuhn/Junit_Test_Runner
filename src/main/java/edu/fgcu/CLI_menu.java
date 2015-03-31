@@ -29,9 +29,11 @@ public class CLI_menu {
 
         System.out.println("What percentage of the test would you like to run? \n\n");
 
-        Scanner reader = new Scanner(System.in);
+        /*Scanner reader = new Scanner(System.in);
         Integer perc_runs =reader.nextInt();
-
+		*/
+		perc_runs=100;
+		
         return perc_runs;
     }
 
