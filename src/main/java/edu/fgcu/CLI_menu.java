@@ -32,7 +32,7 @@ public class CLI_menu {
         /*Scanner reader = new Scanner(System.in);
         Integer perc_runs =reader.nextInt();
 		*/
-		perc_runs=100;
+		int perc_runs=100;
 		
         return perc_runs;
     }
