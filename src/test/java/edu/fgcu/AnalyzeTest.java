@@ -1,314 +1,91 @@
 package test.java.edu.fgcu;
 
 import main.java.edu.fgcu.Analyze;
+import main.java.edu.fgcu.Desired;
+import main.java.edu.fgcu.RunTests;
 import main.java.edu.fgcu.Test_class;
-
-import org.junit.*;
-
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Method;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+
 public class AnalyzeTest {
+	
+	public static Class<Test_class> obj = Test_class.class;
 
 	@Test
-	public void testAnalyze_1()
-		throws Exception {
+    public void num_of_tests(){
 
-		boolean result = Analyze.analyze();
+        int total_test_count=0;
+        for (Method method : obj.getDeclaredMethods()) {
 
-		// add additional test code here
-		assertEquals(true, result);
-	}
+            if (method.isAnnotationPresent(Test.class)||(method.isAnnotationPresent(Before.class))||(method.isAnnotationPresent(After.class))||(method.isAnnotationPresent(Desired.class))){
 
-	@Test(expected = java.lang.RuntimeException.class)
-	public void testDetermine_1()
-		throws Exception {
+                total_test_count++;
+            }
 
-		boolean result = Analyze.determine();
+        }
+        assertEquals(6,total_test_count);
+    }
+	
+	@Test
+    public void num_of_desired(){
 
-		// add additional test code here
-		assertTrue(result);
-	}
+        int desired_count=0;
+        for (Method method : obj.getDeclaredMethods()) {
 
+            if ((method.isAnnotationPresent(Desired.class))){
+
+                desired_count++;
+            }
+        }
+        assertEquals(1,desired_count);
+    }
+	
+	@Test
+	public void set_passed(){
+		int buffer =10;
+		Analyze.set_passed(buffer);
+		int value = Analyze.get_passed();
+		assertEquals(value,buffer);
+	 }
+	
+	@Test
+	public void get_passed_subset(){
+		int buffer = Analyze.get_passed_subset();
+		assertTrue("return passed subset is out of range:" + buffer,0<=buffer&&buffer<=500);
+		}
+	
+	@Test
+	public void get_failed(){
+		int buffer = Analyze.get_failed();
+		assertTrue("return total failed is out of range:" + buffer,0<=buffer&&buffer<=500);	    
+		}
+	
+	@Test
+	public void get_failed_subset(){
+		int buffer = Analyze.get_failed_subset();
+		assertTrue("return failed subset is out of range:" + buffer,0<=buffer&&buffer<=500);
+}
 
 	@Test
-	public void testDisplay_info_1()
-		throws Exception {
-		Class obj = Object.class;
+	public void analyze(){
+	        int buffer = 0;
 
-		Analyze.display_info(obj);
+	        //return buffer;
 
-		// add additional test code here
-	}
-
+	    }
+	
 	@Test
-	public void testDisplay_info_2()
-		throws Exception {
-		Class obj = Object.class;
+	public void determine(){
 
-		Analyze.display_info(obj);
+	        boolean outcome = false;
+	       // return outcome;
 
-		// add additional test code here
-	}
-
-
-	@Test
-	public void testDisplay_info_3()
-		throws Exception {
-		Class obj = Object.class;
-
-		Analyze.display_info(obj);
-
-		// add additional test code here
-	}
-
-
-	@Test
-	public void testDisplay_info_4()
-		throws Exception {
-		Class obj = Object.class;
-
-		Analyze.display_info(obj);
-
-		// add additional test code here
-	}
-
-	@Test
-	public void testGet_failed_1()
-		throws Exception {
-
-		int result = Analyze.get_failed();
-
-		// add additional test code here
-		assertEquals(0, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testGet_failed_subset_1()
-		throws Exception {
-
-		int result = Analyze.get_failed_subset();
-
-		// add additional test code here
-		assertEquals(0, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testGet_passed_1()
-		throws Exception {
-
-		int result = Analyze.get_passed();
-
-		// add additional test code here
-		assertEquals(1, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testGet_passed_subset_1()
-		throws Exception {
-
-		int result = Analyze.get_passed_subset();
-
-		// add additional test code here
-		assertEquals(0, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_desired_1()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_desired(obj);
-
-		// add additional test code here
-		assertEquals(1, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_desired_2()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_desired(obj);
-
-		// add additional test code here
-		assertEquals(1, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_desired_3()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_desired(obj);
-
-		// add additional test code here
-		assertEquals(1, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_desired_4()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_desired(obj);
-
-		// add additional test code here
-		assertEquals(1, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_tests_1()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_tests(obj);
-
-		// add additional test code here
-		assertEquals(6, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_tests_2()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_tests(obj);
-
-		// add additional test code here
-		assertEquals(6, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_tests_3()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_tests(obj);
-
-		// add additional test code here
-		assertEquals(6, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_tests_4()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_tests(obj);
-
-		// add additional test code here
-		assertEquals(6, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_tests_5()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_tests(obj);
-
-		// add additional test code here
-		assertEquals(6, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_tests_6()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_tests(obj);
-
-		// add additional test code here
-		assertEquals(6, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testNum_of_tests_7()
-		throws Exception {
-		Class<Test_class> obj = Test_class.class;
-
-		int result = Analyze.num_of_tests(obj);
-
-		// add additional test code here
-		assertEquals(6, result);
-	}
-
-	/**
-	 * @throws Exception
-	 */
-	@Test
-	public void testSet_passed_1()
-		throws Exception {
-		int passed_buf = 1;
-
-		Analyze.set_passed(passed_buf);
-
-		// add additional test code here
-	}
-
-	/**
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 */
-	@Before
-	public void setUp()
-		throws Exception {
-		// add additional set up code here
-	}
-
-	/**
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 */
-	@After
-	public void tearDown()
-		throws Exception {
-		// Add additional tear down code here
-	}
-
-	public static void main(String[] args) {
-		new org.junit.runner.JUnitCore().run(AnalyzeTest.class);
-	}
+	    }
 }
