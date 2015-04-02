@@ -7,7 +7,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class ResultsTest {
-	
+	/*
 	@Test
 	public void testResults_1()
 		throws Exception {
@@ -15,7 +15,7 @@ public class ResultsTest {
 		assertNotNull(result);
 		// add additional test code here
 	}
-
+*/
 	@Test
 	public void testFinal_report_1()
 		throws Exception {
