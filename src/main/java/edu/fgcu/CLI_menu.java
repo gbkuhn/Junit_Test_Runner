@@ -17,23 +17,22 @@ public class CLI_menu {
 
        System.out.println("How many times do you want to run this group of tests? \n\n");
 
-      // Scanner reader = new Scanner(System.in);
-       //Integer num_runs =reader.nextInt();
-        int num_runs=2;
+       Scanner reader = new Scanner(System.in);
+       Integer num_runs =reader.nextInt();
+        //int num_runs=2;
        // throw new RuntimeException("Menu exception");
 
        return num_runs;
     }
 
-    public static int menu_subset(Class<Test_class> obj, int total_num_tests){
+    public static int menu_subset(Class<Test_class> obj, double total_num_tests){
 
         System.out.println("What percentage of the test would you like to run? \n\n");
-
-        /*Scanner reader = new Scanner(System.in);
+        
+        Scanner reader = new Scanner(System.in);
         Integer perc_runs =reader.nextInt();
-		*/
-		int perc_runs=100;
-		
+
+       // int perc_runs = 80;
         return perc_runs;
     }
 

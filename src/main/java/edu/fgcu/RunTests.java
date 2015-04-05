@@ -33,15 +33,25 @@ public class RunTests{
 
                 //Class<Test_class> obj = Test_class.class;
 
-                int total_num_tests = Analyze.num_of_tests(obj);
+                double total_num_tests = Analyze.num_of_tests(obj);
 
                 System.out.println("Total number of tests: " + total_num_tests);
 
-                int perc_runs = CLI_menu.menu_subset(obj,total_num_tests);
+                double perc_runs = CLI_menu.menu_subset(obj,total_num_tests);
 
                 desired_count=Analyze.num_of_desired(obj);
+                System.out.println("Number of @Desired "+ desired_count);
+                int desired_stored = desired_count; //this will bring back the desired count for each iteration
 
+                System.out.println("perc runs "+ perc_runs);
+                
                 double final_num_runs = ((perc_runs/100)*total_num_tests);
+                
+                System.out.println("Number of tests to runs: " + final_num_runs);
+                
+                double rounded_number = (double)Math.round(final_num_runs * 1) / 1;
+                
+                System.out.println("Rounded number of tests run "+ rounded_number);
 
                 //final_num_runs is the final ammount of test that will be run
 
@@ -61,6 +71,30 @@ public class RunTests{
                         failed_subset=Analyze.get_failed_subset();
 */
 
+                    	 //process @Desired
+                        if (method.isAnnotationPresent(Desired.class)) {
+
+                            Annotation annotation = method.getAnnotation(Desired.class);
+                            Desired test = (Desired) annotation;
+
+                            try {
+                                method.invoke(obj.newInstance());
+                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                desired++;
+                                desired_subset++;
+                                passed++;
+                                passed_subset++;
+                                desired_count--;
+                            } catch (Throwable ex) {
+                                failed++;
+                                failed_subset++;
+                                desired_count--;
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+
+                            }
+
+                        }
+                    	
                         // if method is annotated with @Test
                         if (method.isAnnotationPresent(Test.class)&&desired_count<=0) {
 
@@ -135,7 +169,7 @@ public class RunTests{
                         }
                         */
                         }
-                        //process @after
+                        //process @After
                         if (method.isAnnotationPresent(Ignore.class)&&desired_count<=0) {
 
                             Annotation annotation = method.getAnnotation(Ignore.class);
@@ -155,38 +189,16 @@ public class RunTests{
                             }
 
                         }
-
-                        if (method.isAnnotationPresent(Desired.class)) {
-
-                            Annotation annotation = method.getAnnotation(Desired.class);
-                            Desired test = (Desired) annotation;
-
-                            try {
-                                method.invoke(obj.newInstance());
-                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
-                                desired++;
-                                desired_subset++;
-                                passed++;
-                                passed_subset++;
-                                desired_count--;
-                            } catch (Throwable ex) {
-                                failed++;
-                                failed_subset++;
-                                desired_count--;
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
-
-                            }
-
-                        }
                     }
 
                     Results.subset_report();
 
                     Results.reset_values();
-
+                    
+                    desired_count=desired_stored;//bring back the original value for the next iteration
                 }
                 Results.final_report();
-                Results.percentages();
+                //Results.percentages();
             }
         }
 

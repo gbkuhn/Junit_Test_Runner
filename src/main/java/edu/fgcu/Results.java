@@ -43,7 +43,7 @@ public class Results extends RunTests {
         }
         return false;
     }
-
+/*
     public static boolean percentages(){
         if((before_subset_sum< 0) || (passed_subset_sum < 0)|| (after_subset_sum < 0)){
             return false;
@@ -60,5 +60,6 @@ public class Results extends RunTests {
         //System.out.printf("%n-->Percentages: Total: %f, Passed: %f, Failed: %f, Ignored: %f, Before: %f, After: %f, Desired: %f%n", count_perc, passed_perc, failed_perc, 0, before_perc, after_perc, desired_perc);
 
     }
+    */
 
 }

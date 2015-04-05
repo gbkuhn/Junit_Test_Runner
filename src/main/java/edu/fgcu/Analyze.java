@@ -7,10 +7,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-/**
- * Created by geoffreykuhn on 3/10/15.
- */
-
 public class Analyze extends Test_class{
     public static int passed_subset, failed_subset, count_subset, ignore_subset, before_subset, after_subset, desired_subset;
     public static int passed, failed, count, ignore, before, after, desired;
