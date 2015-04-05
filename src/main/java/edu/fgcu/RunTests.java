@@ -50,9 +50,12 @@ public class RunTests{
                 System.out.println("Number of tests to runs: " + final_num_runs);
                 
                 double rounded_number = (double)Math.round(final_num_runs * 1) / 1;
-                
                 System.out.println("Rounded number of tests run "+ rounded_number);
 
+                final_num_runs = rounded_number;
+                double final_num_runs_stored = final_num_runs;
+
+                
                 //final_num_runs is the final ammount of test that will be run
 
                 Analyze.display_info(obj);
@@ -72,11 +75,12 @@ public class RunTests{
 */
 
                     	 //process @Desired
-                        if (method.isAnnotationPresent(Desired.class)) {
+                        if (method.isAnnotationPresent(Desired.class)&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Desired.class);
                             Desired test = (Desired) annotation;
 
+                            final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
@@ -90,20 +94,19 @@ public class RunTests{
                                 failed_subset++;
                                 desired_count--;
                                 System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
-
                             }
 
                         }
                     	
                         // if method is annotated with @Test
-                        if (method.isAnnotationPresent(Test.class)&&desired_count<=0) {
+                        if (method.isAnnotationPresent(Test.class)&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Test.class);
                             Test test = (Test) annotation;
 
                             // if enabled = true (default)
                             // if (test.enabled()) {
-
+                            final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
@@ -118,12 +121,13 @@ public class RunTests{
                         }
 
                         //process @before
-                        if (method.isAnnotationPresent(Before.class)&&desired_count<=0) {
+                        if (method.isAnnotationPresent(Before.class)&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Before.class);
                             Before test = (Before) annotation;
 
-
+                            
+                            final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
@@ -141,11 +145,12 @@ public class RunTests{
 
                         }
                         //process @after
-                        if (method.isAnnotationPresent(After.class)&&desired_count<=0) {
+                        if (method.isAnnotationPresent(After.class)&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(After.class);
                             After test = (After) annotation;
 
+                            final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
@@ -170,11 +175,12 @@ public class RunTests{
                         */
                         }
                         //process @After
-                        if (method.isAnnotationPresent(Ignore.class)&&desired_count<=0) {
+                        if (method.isAnnotationPresent(Ignore.class)&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Ignore.class);
                             Ignore test = (Ignore) annotation;
 
+                            final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
                                 System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
@@ -196,6 +202,7 @@ public class RunTests{
                     Results.reset_values();
                     
                     desired_count=desired_stored;//bring back the original value for the next iteration
+                    final_num_runs=final_num_runs_stored;//bring back the original value for next iter
                 }
                 Results.final_report();
                 //Results.percentages();

@@ -49,7 +49,7 @@ public class Test_class {
     }
 
     public void empty_method_6(){
-        //empty, not a pass or a fail
+        //not tested
     }
 
     @Test public void method_7() {
