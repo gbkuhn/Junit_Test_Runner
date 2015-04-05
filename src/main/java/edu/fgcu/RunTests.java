@@ -12,8 +12,8 @@ public class RunTests{
     CLI_menu CLI_menu_obj= new CLI_menu();
     Results results = new Results();
 
-    public static int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0;
-    public static int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0;
+    public static int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0, must_subset=0;
+    public static int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0, must = 0;
 
     public static int num_runs = CLI_menu.menu();
 
@@ -74,6 +74,30 @@ public class RunTests{
                         failed_subset=Analyze.get_failed_subset();
 */
 
+                        // if method is annotated with @Must
+                        if (method.isAnnotationPresent(Must.class)&&final_num_runs>0) {
+
+                            Annotation annotation = method.getAnnotation(Must.class);
+                            Must test = (Must) annotation;
+
+                            final_num_runs--;
+                            try {
+                                method.invoke(obj.newInstance());
+                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                must++;
+                                must_subset++;
+                                
+                                passed++;
+                                passed_subset++;
+                                
+                                
+                            } catch (Throwable ex) {
+                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                failed++;
+                                failed_subset++;
+                            }
+
+                        }
                     	 //process @Desired
                         if (method.isAnnotationPresent(Desired.class)&&final_num_runs>0) {
 

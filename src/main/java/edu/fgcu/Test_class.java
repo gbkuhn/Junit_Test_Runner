@@ -34,7 +34,12 @@ public class Test_class {
     }
 
     @Desired
-    public void empty_method_3(){
+    public void desired_method_3(){
+        //will return a pass
+    }
+    
+    @Must
+    public void must_method_3(){
         //will return a pass
     }
 
