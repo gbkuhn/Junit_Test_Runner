@@ -28,14 +28,13 @@ public class RunTests{
 
     public static void main(String[] args) throws Exception {
 
-
                 System.out.println("Testing Runner Starting...");
 
                 //Class<Test_class> obj = Test_class.class;
 
                 double total_num_tests = Analyze.num_of_tests(obj);
-
-                System.out.println("Total number of tests: " + total_num_tests);
+                
+                CLI_menu.print_total_tests(total_num_tests);
 
                 double perc_runs = CLI_menu.menu_subset(obj,total_num_tests);
 
@@ -43,7 +42,7 @@ public class RunTests{
                 System.out.println("Number of @Desired "+ desired_count);
                 int desired_stored = desired_count; //this will bring back the desired count for each iteration
 
-                System.out.println("perc runs "+ perc_runs);
+                System.out.println("Percentage that will run "+ perc_runs);
                                 
                 double final_num_runs = Analyze.get_perc(perc_runs, total_num_tests);
                 
@@ -65,15 +64,6 @@ public class RunTests{
 
                     // Process @Test
                     for (Method method : obj.getDeclaredMethods()) {
-/*
-                        Analyze.test_process(method, obj,count,passed,passed_subset,failed,failed_subset);
-
-                        passed = Analyze.get_passed();
-                        passed_subset = Analyze.get_passed_subset();
-
-                        failed=Analyze.get_failed();
-                        failed_subset=Analyze.get_failed_subset();
-*/
 
                         // if method is annotated with @Must
                         if (method.isAnnotationPresent(Must.class)&&final_num_runs>0) {

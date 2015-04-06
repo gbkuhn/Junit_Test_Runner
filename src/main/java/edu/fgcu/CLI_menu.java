@@ -35,6 +35,11 @@ public class CLI_menu {
        // int perc_runs = 80;
         return perc_runs;
     }
+    
+    public static void print_total_tests(double total_num_tests){
+    	System.out.println("Total number of tests: "+ total_num_tests);
+   
+    }
 
 
     public static void exit(){
