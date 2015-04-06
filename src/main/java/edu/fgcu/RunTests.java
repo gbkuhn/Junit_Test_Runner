@@ -44,12 +44,13 @@ public class RunTests{
                 int desired_stored = desired_count; //this will bring back the desired count for each iteration
 
                 System.out.println("perc runs "+ perc_runs);
-                
-                double final_num_runs = ((perc_runs/100)*total_num_tests);
+                                
+                double final_num_runs = Analyze.get_perc(perc_runs, total_num_tests);
                 
                 System.out.println("Number of tests to runs: " + final_num_runs);
                 
-                double rounded_number = (double)Math.round(final_num_runs * 1) / 1;
+                double rounded_number = Analyze.round(final_num_runs);
+                
                 System.out.println("Rounded number of tests run "+ rounded_number);
 
                 final_num_runs = rounded_number;

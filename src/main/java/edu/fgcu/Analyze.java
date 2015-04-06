@@ -91,20 +91,14 @@ public class Analyze extends Test_class{
     }
 
 
-    public static boolean analyze(){
-       boolean flag =true;
+    public static double get_perc(double perc_runs, double total_num_tests){
+    	return ((perc_runs/100)*total_num_tests);
 
-        //return buffer;
-
-       	return true;
    }
 
-    public static boolean determine(){
+    public static double round(double final_num_runs){
 
-        boolean outcome = false;
-       // return outcome;
-        throw new RuntimeException("Determine exception");
-
+    	return (double)Math.round(final_num_runs * 1) / 1;
     }
 
 }
