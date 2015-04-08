@@ -1,15 +1,15 @@
 package test.java.edu.fgcu;
 
 import main.java.edu.fgcu.Analyze;
+import main.java.edu.fgcu.CLI_menu;
 import main.java.edu.fgcu.Desired;
-import main.java.edu.fgcu.RunTests;
+import main.java.edu.fgcu.Must;
 import main.java.edu.fgcu.Test_class;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,6 +48,20 @@ public class AnalyzeTest {
     }
 	
 	@Test
+    public void num_of_must(){
+
+        int must_count=0;
+        for (Method method : obj.getDeclaredMethods()) {
+
+            if ((method.isAnnotationPresent(Must.class))){
+
+            	must_count++;
+            }
+        }
+        assertEquals(1,must_count);
+}
+	
+	@Test
 	public void set_passed(){
 		int buffer =10;
 		Analyze.set_passed(buffer);
@@ -71,21 +85,30 @@ public class AnalyzeTest {
 	public void get_failed_subset(){
 		int buffer = Analyze.get_failed_subset();
 		assertTrue("return failed subset is out of range:" + buffer,0<=buffer&&buffer<=500);
-}
-
-	@Test
-	public void analyze(){
-	        int buffer = 0;
-
-	        //return buffer;
-
-	    }
+		}
 	
 	@Test
-	public void determine(){
+    public void get_perc(){
+        double total_num_tests = Analyze.num_of_tests(obj);
 
-	        boolean outcome = false;
-	       // return outcome;
+		double perc_runs = CLI_menu.menu_subset(obj,total_num_tests);
+		
 
-	    }
+    	Analyze.get_perc(perc_runs, total_num_tests);	
+		assertTrue(((perc_runs/100)*total_num_tests)>0);
+		}
+	
+	@Test
+    public void round(){
+        double total_num_tests = Analyze.num_of_tests(obj);
+
+		double perc_runs = CLI_menu.menu_subset(obj,total_num_tests);
+
+        double final_num_runs = Analyze.get_perc(perc_runs, total_num_tests);
+
+       double rounded_buffer=((double)Math.round(final_num_runs * 1) / 1);
+        
+    	assertTrue(rounded_buffer>0);
+    }
+    
 }
