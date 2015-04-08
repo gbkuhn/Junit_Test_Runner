@@ -11,15 +11,16 @@ public class RunTests{
 
     CLI_menu CLI_menu_obj= new CLI_menu();
     Results results = new Results();
-
     public static int passed_subset = 0, failed_subset = 0, count_subset = 0, ignore_subset = 0, before_subset = 0, after_subset = 0, desired_subset = 0, must_subset=0;
     public static int passed = 0, failed = 0, count = 0, ignore = 0, before = 0, after = 0, desired = 0, must = 0;
 
-    public static int num_runs = CLI_menu.menu();
+    public static int num_iterations = CLI_menu.menu();
 
-    public static int num_runs_buffer = num_runs;
+    public static int num_iterations_buffer = num_iterations;
 
     public static int desired_count;
+    public static int must_count;
+
     /*
         Object obj0 = Class.forName(args[0]).newInstance();
 */
@@ -40,6 +41,10 @@ public class RunTests{
 
                 desired_count=Analyze.num_of_desired(obj);
                 System.out.println("Number of @Desired "+ desired_count);
+                
+                desired_count=Analyze.num_of_must(obj);
+                System.out.println("Number of @Must "+ must_count);
+                
                 int desired_stored = desired_count; //this will bring back the desired count for each iteration
 
                 System.out.println("Percentage that will run "+ perc_runs);
@@ -60,13 +65,13 @@ public class RunTests{
 
                 Analyze.display_info(obj);
 
-                for(int runner_loop=0;runner_loop<=num_runs-1;runner_loop++) {
+                for(int runner_loop=0;runner_loop<=num_iterations-1;runner_loop++) {
 
-                    // Process @Test
+       
                     for (Method method : obj.getDeclaredMethods()) {
 
                         // if method is annotated with @Must
-                        if (method.isAnnotationPresent(Must.class)&&final_num_runs>0) {
+                        if ((method.isAnnotationPresent(Must.class))&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Must.class);
                             Must test = (Must) annotation;
@@ -74,7 +79,7 @@ public class RunTests{
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
-                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                System.out.printf("%s: @Must '%s' -> passed %n", ++count, method.getName());
                                 must++;
                                 must_subset++;
                                 
@@ -83,14 +88,14 @@ public class RunTests{
                                 
                                 
                             } catch (Throwable ex) {
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                System.out.printf("%s: @Must '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
                                 failed_subset++;
                             }
 
                         }
                     	 //process @Desired
-                        if (method.isAnnotationPresent(Desired.class)&&final_num_runs>0) {
+                        if ((method.isAnnotationPresent(Desired.class))&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Desired.class);
                             Desired test = (Desired) annotation;
@@ -98,7 +103,7 @@ public class RunTests{
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
-                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                System.out.printf("%s: @Desired '%s' -> passed %n", ++count, method.getName());
                                 desired++;
                                 desired_subset++;
                                 passed++;
@@ -108,13 +113,13 @@ public class RunTests{
                                 failed++;
                                 failed_subset++;
                                 desired_count--;
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                System.out.printf("%s: @Desired '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                             }
 
                         }
                     	
                         // if method is annotated with @Test
-                        if (method.isAnnotationPresent(Test.class)&&final_num_runs>0) {
+                        if ((method.isAnnotationPresent(Test.class))&&final_num_runs>0) {//&&final_num_runs>0
 
                             Annotation annotation = method.getAnnotation(Test.class);
                             Test test = (Test) annotation;
@@ -124,11 +129,11 @@ public class RunTests{
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
-                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                System.out.printf("%s: @Test '%s' -> passed %n", ++count, method.getName());
                                 passed++;
                                 passed_subset++;
                             } catch (Throwable ex) {
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                System.out.printf("%s: @Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                                 failed++;
                                 failed_subset++;
                             }
@@ -136,7 +141,7 @@ public class RunTests{
                         }
 
                         //process @before
-                        if (method.isAnnotationPresent(Before.class)&&final_num_runs>0) {
+                        if ((method.isAnnotationPresent(Before.class))&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Before.class);
                             Before test = (Before) annotation;
@@ -145,7 +150,7 @@ public class RunTests{
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
-                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                System.out.printf("%s: @Before '%s' -> passed %n", ++count, method.getName());
                                 passed++;
                                 passed_subset++;
                                 before++;
@@ -155,12 +160,12 @@ public class RunTests{
                                 failed_subset++;
                                 before++;
                                 before_subset++;
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                System.out.printf("%s: @Before '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
                             }
 
                         }
                         //process @after
-                        if (method.isAnnotationPresent(After.class)&&final_num_runs>0) {
+                        if ((method.isAnnotationPresent(After.class))&&final_num_runs>0) {//&&final_num_runs>0
 
                             Annotation annotation = method.getAnnotation(After.class);
                             After test = (After) annotation;
@@ -168,7 +173,7 @@ public class RunTests{
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
-                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                System.out.printf("%s: @After '%s' -> passed %n", ++count, method.getName());
                                 passed++;
                                 passed_subset++;
                                 after++;
@@ -178,7 +183,7 @@ public class RunTests{
                                 failed_subset++;
                                 after++;
                                 after_subset++;
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                System.out.printf("%s: @After '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
 
 
                             }
@@ -189,7 +194,7 @@ public class RunTests{
                         }
                         */
                         }
-                        //process @After
+                        //process @Ignore
                         if (method.isAnnotationPresent(Ignore.class)&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Ignore.class);
@@ -198,17 +203,16 @@ public class RunTests{
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
-                                System.out.printf("%s: Test '%s' -> passed %n", ++count, method.getName());
+                                System.out.printf("%s: @Ignore '%s' -> passed %n", ++count, method.getName());
                                 ignore++;
                                 ignore_subset++;
                             } catch (Throwable ex) {
                                 failed++;
                                 ignore++;
                                 ignore_subset++;
-                                System.out.printf("%s: Test '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
+                                System.out.printf("%s: @Ignore '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());
 
                             }
-
                         }
                     }
 

@@ -1,6 +1,7 @@
 package main.java.edu.fgcu;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
@@ -42,7 +43,7 @@ public class Analyze extends Test_class{
         int total_test_count=0;
         for (Method method : obj.getDeclaredMethods()) {
 
-            if (method.isAnnotationPresent(Test.class)||(method.isAnnotationPresent(Before.class))||(method.isAnnotationPresent(After.class))||(method.isAnnotationPresent(Desired.class))){
+            if (method.isAnnotationPresent(Test.class)||(method.isAnnotationPresent(Before.class))||(method.isAnnotationPresent(After.class))||(method.isAnnotationPresent(Desired.class))||(method.isAnnotationPresent(Ignore.class))||(method.isAnnotationPresent(Must.class))){
 
                 total_test_count++;
             }
@@ -63,7 +64,19 @@ public class Analyze extends Test_class{
         }
         return desired_count;
     }
+    
+    public static int num_of_must(Class<Test_class> obj){
 
+        int must_count=0;
+        for (Method method : obj.getDeclaredMethods()) {
+
+            if ((method.isAnnotationPresent(Must.class))){
+
+                must_count++;
+            }
+        }
+        return must_count;
+    }
   
     public static void set_passed(int passed_buf){
 

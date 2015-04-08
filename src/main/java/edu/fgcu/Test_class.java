@@ -19,32 +19,32 @@ import org.junit.Test;
 public class Test_class {
 
     @Before
-    public void before_method_0(){
+    public void before_method_0(){ //
         //Will return as a before+1
     }
 
     @After
-    public void after_method_1(){
+    public void after_method_1(){ //
         //will return as after+1
     }
 
     @Test
-    public void pass_method_2(){
+    public void pass_method_2(){ //
         //Will return as a pass
     }
 
     @Desired
-    public void desired_method_3(){
+    public void desired_method_3(){ //
         //will return a pass
     }
     
     @Must
-    public void must_method_3(){
+    public void must_method_3(){ //
         //will return a pass
     }
 
     @Test
-    public void failed_method_4() {
+    public void failed_method_4() { //
         throw new RuntimeException("Intentionally Failed");
     }
 
