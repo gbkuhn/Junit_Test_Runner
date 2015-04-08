@@ -17,10 +17,9 @@ public class CLI_menu {
 
        System.out.println("How many times do you want to run this group of tests? \n\n");
 
-       Scanner reader = new Scanner(System.in);
-       Integer num_runs =reader.nextInt();
-        //int num_runs=2;
-       // throw new RuntimeException("Menu exception");
+       //Scanner reader = new Scanner(System.in);
+       //Integer num_runs =reader.nextInt();
+        int num_runs=2;
 
        return num_runs;
     }
@@ -29,10 +28,10 @@ public class CLI_menu {
 
         System.out.println("What percentage of the test would you like to run? \n\n");
         
-        Scanner reader = new Scanner(System.in);
-        Integer perc_runs =reader.nextInt();
+       // Scanner reader = new Scanner(System.in);
+       // Integer perc_runs =reader.nextInt();
 
-      //  int perc_runs = 100;
+        int perc_runs = 100;
         return perc_runs;
     }
     
@@ -40,13 +39,11 @@ public class CLI_menu {
     	System.out.println("Total number of tests: "+ total_num_tests);
    
     }
-
-
+    
     public static void exit(){
 
         throw new RuntimeException("Menu exit exception");
 
     }
-
 
 }

@@ -40,10 +40,10 @@ public class RunTests{
                 double perc_runs = CLI_menu.menu_subset(obj,total_num_tests);
 
                 desired_count=Analyze.num_of_desired(obj);
-                System.out.println("Number of @Desired "+ desired_count);
+                System.out.println("Number of @Desired: "+ desired_count);
                 
-                desired_count=Analyze.num_of_must(obj);
-                System.out.println("Number of @Must "+ must_count);
+                must_count=Analyze.num_of_must(obj);
+                System.out.println("Number of @Must: "+ must_count);
                 
                 int desired_stored = desired_count; //this will bring back the desired count for each iteration
 
@@ -76,6 +76,7 @@ public class RunTests{
                             Annotation annotation = method.getAnnotation(Must.class);
                             Must test = (Must) annotation;
 
+                            must_count--;
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
@@ -94,12 +95,14 @@ public class RunTests{
                             }
 
                         }
-                    	 //process @Desired
+
+                        //process @Desired
                         if ((method.isAnnotationPresent(Desired.class))&&final_num_runs>0) {
 
                             Annotation annotation = method.getAnnotation(Desired.class);
                             Desired test = (Desired) annotation;
 
+                            desired_count--;
                             final_num_runs--;
                             try {
                                 method.invoke(obj.newInstance());
@@ -119,7 +122,7 @@ public class RunTests{
                         }
                     	
                         // if method is annotated with @Test
-                        if ((method.isAnnotationPresent(Test.class))&&final_num_runs>0) {//&&final_num_runs>0
+                        if (((method.isAnnotationPresent(Test.class))&&final_num_runs>0)) {
 
                             Annotation annotation = method.getAnnotation(Test.class);
                             Test test = (Test) annotation;
@@ -141,7 +144,7 @@ public class RunTests{
                         }
 
                         //process @before
-                        if ((method.isAnnotationPresent(Before.class))&&final_num_runs>0) {
+                        if (((method.isAnnotationPresent(Before.class))&&final_num_runs>0)) {
 
                             Annotation annotation = method.getAnnotation(Before.class);
                             Before test = (Before) annotation;
@@ -165,7 +168,7 @@ public class RunTests{
 
                         }
                         //process @after
-                        if ((method.isAnnotationPresent(After.class))&&final_num_runs>0) {//&&final_num_runs>0
+                        if (((method.isAnnotationPresent(After.class))&&final_num_runs>0)) {
 
                             Annotation annotation = method.getAnnotation(After.class);
                             After test = (After) annotation;
@@ -195,7 +198,7 @@ public class RunTests{
                         */
                         }
                         //process @Ignore
-                        if (method.isAnnotationPresent(Ignore.class)&&final_num_runs>0) {
+                        if ((method.isAnnotationPresent(Ignore.class)&&final_num_runs>0)) {
 
                             Annotation annotation = method.getAnnotation(Ignore.class);
                             Ignore test = (Ignore) annotation;

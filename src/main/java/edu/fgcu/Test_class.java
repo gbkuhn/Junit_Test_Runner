@@ -17,6 +17,16 @@ import org.junit.Test;
 )
 
 public class Test_class {
+	
+    @Desired
+    public void desired_method_3(){ //
+        //will return a pass
+    }
+    
+    @Must
+    public void must_method_3(){ //
+        //will return a pass
+    }
 
     @Before
     public void before_method_0(){ //
@@ -33,15 +43,6 @@ public class Test_class {
         //Will return as a pass
     }
 
-    @Desired
-    public void desired_method_3(){ //
-        //will return a pass
-    }
-    
-    @Must
-    public void must_method_3(){ //
-        //will return a pass
-    }
 
     @Test
     public void failed_method_4() { //
