@@ -13,14 +13,7 @@ public class ResultsTest {
 
     @Test
     public void testSubset_report(){
-        count_subset_sum+=count_subset;
-        passed_subset_sum+= passed_subset;
-        failed_subset_sum+=failed_subset;
-        //ignore_subset_sum+=ignore_subset;
-        before_subset_sum+=before_subset;
-        after_subset_sum+=after_subset;
-
-        assertEquals(count_subset,count_subset_sum);
+        Results.subset_report();
     }
 
     @Test
@@ -36,10 +29,20 @@ public class ResultsTest {
         assertTrue(check);
        
     }
+    @Test
+    public void testFinal_report_failure(){
+    	
+    }
 
     @Test
     public void testPercentages(){
     	//will not pass yet
-        //assertTrue(Results.percentages());
+        assertTrue(Results.percentages());
+    }
+    
+    @Test
+    
+    public void testPercentages_failure(){
+    	
     }
 }
