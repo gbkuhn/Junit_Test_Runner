@@ -37,13 +37,7 @@ public class AnalyzeTest {
     public void num_of_desired(){
 
         int desired_count=0;
-        for (Method method : obj.getDeclaredMethods()) {
-
-            if ((method.isAnnotationPresent(Desired.class))){
-
-                desired_count++;
-            }
-        }
+        desired_count = Analyze.num_of_desired(obj);
         assertEquals(1,desired_count);
     }
 	
@@ -51,13 +45,7 @@ public class AnalyzeTest {
     public void num_of_must(){
 
         int must_count=0;
-        for (Method method : obj.getDeclaredMethods()) {
-
-            if ((method.isAnnotationPresent(Must.class))){
-
-            	must_count++;
-            }
-        }
+		must_count = Analyze.num_of_must(obj);
         assertEquals(1,must_count);
 }
 	
@@ -106,9 +94,16 @@ public class AnalyzeTest {
 
         double final_num_runs = Analyze.get_perc(perc_runs, total_num_tests);
 
-       double rounded_buffer=((double)Math.round(final_num_runs * 1) / 1);
+       //double rounded_buffer=((double)Math.round(final_num_runs * 1) / 1);
+        double rounded_buffer = Analyze.round(final_num_runs);
         
     	assertTrue(rounded_buffer>0);
     }
+	
+	@Test
+	public void display_info_test(){
+		Analyze.display_info(obj);
+	}
+	
     
 }
