@@ -48,18 +48,18 @@ public class Results extends RunTests {
     }
 
     public static boolean percentages(){
-        if((before_subset_sum< 0) || (passed_subset_sum < 0)|| (after_subset_sum < 0)){
+        if((before_subset_sum< 0) || (passed_subset_sum<0)|| (after_subset_sum<0)){
             return false;
         }
 /*
         double passed_perc = num_runs_buffer/passed_subset_sum;
         double failed_perc = num_runs_buffer/failed_subset_sum;
         double before_perc = num_runs_buffer/before_subset_sum;
-        double after_perc = num_runs_buffer/after_subset_sum;
+        double after_perc  = num_runs_buffer/after_subset_sum;
         double desired_perc = 0;//        double desired_perc = num_runs_buffer/desired_subset_sum;
-
-        System.out.printf("%n-->Percentages: Passed: %f, Failed: %f, Ignored: %f, Before: %f, After: %f, Desired: %f%n", passed_perc, failed_perc, 0, before_perc, after_perc, desired_perc);
-        */
+*/
+        //System.out.printf("%n-->Percentages: Passed: %f, Failed: %f, Ignored: %f, Before: %f, After: %f, Desired: %f%n", passed_perc, failed_perc, 0, before_perc, after_perc, desired_perc);
+        
         return true;
     }
     

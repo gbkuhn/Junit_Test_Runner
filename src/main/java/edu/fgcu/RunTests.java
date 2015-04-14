@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class RunTests{
 
@@ -21,8 +24,8 @@ public class RunTests{
     public static int desired_count;
     public static int must_count;
 
-    /*
-        Object obj0 = Class.forName(args[0]).newInstance();
+/*
+    Object obj0 = Class.forName(args[0]).newInstance();
 */
     public static Class<Test_class> obj = Test_class.class;
 
@@ -64,11 +67,27 @@ public class RunTests{
                 //final_num_runs is the final ammount of test that will be run
 
                 Analyze.display_info(obj);
+                
+              
+                //add amount of tests to list
+                ArrayList<Integer>  lista = new ArrayList<Integer>();
+                for(int i=0;i<=total_num_tests-1;i++) {
+                	lista.add(i);
+                }
 
                 for(int runner_loop=0;runner_loop<=num_iterations-1;runner_loop++) {
-
-       
+                	
+                   for(int rand_loop=0;rand_loop<=5;rand_loop++) {
+                    	//this ensures every test is ran, randomly
+                	   
+                		int min=0;
+                    	int max= 5;
+                        Random rand = new Random();
+                        int rand_num = rand.nextInt((max - min) + 1) + min;
+                    
                     for (Method method : obj.getDeclaredMethods()) {
+ 
+                    	if(rand_num==0){
 
                         // if method is annotated with @Must
                         if ((method.isAnnotationPresent(Must.class))&&final_num_runs>0) {
@@ -95,6 +114,9 @@ public class RunTests{
                             }
 
                         }
+                    	}
+
+                    	if(rand_num==1){
 
                         //process @Desired
                         if ((method.isAnnotationPresent(Desired.class))&&final_num_runs>0) {
@@ -120,6 +142,9 @@ public class RunTests{
                             }
 
                         }
+                    	}
+                    	
+                    	if(rand_num==2){
                     	
                         // if method is annotated with @Test
                         if (((method.isAnnotationPresent(Test.class))&&final_num_runs>0)) {
@@ -142,6 +167,10 @@ public class RunTests{
                             }
 
                         }
+                    	}
+
+                    	
+                    	if(rand_num==3){
 
                         //process @before
                         if (((method.isAnnotationPresent(Before.class))&&final_num_runs>0)) {
@@ -167,6 +196,10 @@ public class RunTests{
                             }
 
                         }
+                    	}
+                    	
+                    	if(rand_num==4){
+
                         //process @after
                         if (((method.isAnnotationPresent(After.class))&&final_num_runs>0)) {
 
@@ -197,6 +230,10 @@ public class RunTests{
                         }
                         */
                         }
+                    	}
+                    	
+                    	if(rand_num==5){
+
                         //process @Ignore
                         if ((method.isAnnotationPresent(Ignore.class)&&final_num_runs>0)) {
 
@@ -217,7 +254,9 @@ public class RunTests{
 
                             }
                         }
+                    	}
                     }
+                }
 
                     Results.subset_report();
 
@@ -227,7 +266,7 @@ public class RunTests{
                     final_num_runs=final_num_runs_stored;//bring back the original value for next iter
                 }
                 Results.final_report();
-                //Results.percentages();
+              //Results.percentages();
             }
         }
 

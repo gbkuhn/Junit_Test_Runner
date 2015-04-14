@@ -14,7 +14,6 @@ public class Analyze extends Test_class{
 
     public static void display_info(Class obj){
 
-
         if (obj.isAnnotationPresent(Runner_info.class)) {
 
             Annotation annotation = obj.getAnnotation(Runner_info.class);
@@ -47,7 +46,6 @@ public class Analyze extends Test_class{
 
                 total_test_count++;
             }
-
         }
         return total_test_count;
     }
