@@ -56,6 +56,21 @@ public class Analyze extends Test_class{
 		long seed = System.nanoTime();
 		Collections.shuffle(rand_array, new Random(seed));
 		
+		sort_desired_must(rand_array);
+		
+		return rand_array;
+	}
+	
+	public static ArrayList<Integer> sort_desired_must(ArrayList<Integer> rand_array){
+		   for(int i = rand_array.size()-1; i >= 0; i--) {
+		        for(int j = 0; j < 1; j++) {//i
+		            if(rand_array.get(j) > rand_array.get(j + 1)) {
+		                int temp = rand_array.get(j);
+		                rand_array.set(j, rand_array.get(j + 1));
+		                rand_array.set(j + 1, temp);
+		            }
+		        }
+		    }
 		return rand_array;
 	}
 
