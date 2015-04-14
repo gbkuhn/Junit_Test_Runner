@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -71,23 +72,33 @@ public class RunTests{
               
                 //add amount of tests to list
                 ArrayList<Integer>  lista = new ArrayList<Integer>();
-                for(int i=0;i<=total_num_tests-1;i++) {
+               /* for(int i=0;i<=total_num_tests-1;i++) {
                 	lista.add(i);
                 }
-
+*/
                 for(int runner_loop=0;runner_loop<=num_iterations-1;runner_loop++) {
                 	
-                   for(int rand_loop=0;rand_loop<=5;rand_loop++) {
-                    	//this ensures every test is ran, randomly
-                	   
-                		int min=0;
-                    	int max= 5;
-                        Random rand = new Random();
-                        int rand_num = rand.nextInt((max - min) + 1) + min;
-                    
+             
+                        
+                        ArrayList<Integer> rand_array = new ArrayList<Integer>();
+                   
+                        for (int i=0; i<total_num_tests; i++)
+                        {
+                        	rand_array.add(i);
+                        	//System.out.println(arrayRandom);
+                        }
+                        
+                        long seed = System.nanoTime();
+                        Collections.shuffle(rand_array, new Random(seed));
+                    	//System.out.println(arrayRandom);
+
+                        
                     for (Method method : obj.getDeclaredMethods()) {
  
-                    	if(rand_num==0){
+                    	for(int i=0;i<rand_array.size()-1;i++){
+                    		int rand_num = rand_array.get(i);
+                    	
+                    		if(rand_num==0){
 
                         // if method is annotated with @Must
                         if ((method.isAnnotationPresent(Must.class))&&final_num_runs>0) {
