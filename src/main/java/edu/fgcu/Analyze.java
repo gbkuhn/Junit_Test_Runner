@@ -7,11 +7,14 @@ import org.junit.Test;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class Analyze extends Test_class{
     public static int passed_subset, failed_subset, count_subset, ignore_subset, before_subset, after_subset, desired_subset;
     public static int passed, failed, count, ignore, before, after, desired;
 
+    
     public static void display_info(Class obj){
 
         if (obj.isAnnotationPresent(Runner_info.class)) {
@@ -36,6 +39,25 @@ public class Analyze extends Test_class{
         }
 
     }
+    
+    public static ArrayList<Integer> fill_array(ArrayList<Integer> rand_array, double total_num_tests){
+		
+		for (int i=0; i<total_num_tests; i++)
+		{
+			rand_array.add(i);
+			//System.out.println(arrayRandom);
+		}
+    	
+    	return rand_array;
+    }
+    
+	public static ArrayList<Integer> shuffle_arraylist(ArrayList<Integer> rand_array) {
+
+		long seed = System.nanoTime();
+		Collections.shuffle(rand_array, new Random(seed));
+		
+		return rand_array;
+	}
 
     public static int num_of_tests(Class<Test_class> obj){
 
@@ -111,5 +133,4 @@ public class Analyze extends Test_class{
 
     	return (double)Math.round(final_num_runs * 1) / 1;
     }
-
 }
