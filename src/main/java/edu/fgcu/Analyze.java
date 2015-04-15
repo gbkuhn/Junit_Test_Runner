@@ -4,6 +4,11 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.lang.management.*;
+
+//import com.sun.management.OperatingSystemMXBean;
+
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -13,7 +18,8 @@ import java.util.Random;
 public class Analyze extends Test_class{
     public static int passed_subset, failed_subset, count_subset, ignore_subset, before_subset, after_subset, desired_subset;
     public static int passed, failed, count, ignore, before, after, desired;
-
+    public static int current_proc;
+    public static double avail_mem, avail_jvm_mem;
     
     public static void display_info(Class obj){
 
@@ -35,9 +41,17 @@ public class Analyze extends Test_class{
                 }
                 tag_size--;
             }
-            System.out.printf("%nLastModified: %s%n%n", testerInfo.modified_date());
+            System.out.printf("%nLast_Modified: %s%n%n", testerInfo.modified_date());
         }
-
+    }
+    
+    public static void current_resources(){
+    		current_proc = Runtime.getRuntime().availableProcessors();
+    		avail_mem = (Runtime.getRuntime().freeMemory()/1048576);
+    		avail_jvm_mem = (Runtime.getRuntime().totalMemory()/1048576);
+    	    System.out.println("Available processors(cores): " + current_proc);
+    	    System.out.println("Available memory(mb): "+avail_mem);
+    	    System.out.println("Current memory available to JVM (mb): "+avail_jvm_mem+"\n");
     }
     
     public static ArrayList<Integer> fill_array(ArrayList<Integer> rand_array, double total_num_tests){
@@ -125,6 +139,21 @@ public class Analyze extends Test_class{
             }
         }
         return must_count;
+    } 
+    
+    public static int get_current_proc(){
+    	
+    	return current_proc;
+    }
+
+    public static double get_avail_mem(){
+    	
+    	return avail_mem;
+    }
+    
+    public static double get_avail_jvm_mem(){
+    	
+    	return avail_jvm_mem;
     }
   
     public static void set_passed(int passed_buf){

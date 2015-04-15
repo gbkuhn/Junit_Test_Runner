@@ -76,6 +76,8 @@ public class RunTests{
 		
 		Analyze.sort_desired_must(rand_array);
 		//System.out.println(rand_array);
+		
+		Analyze.current_resources();
 
 		for(int runner_loop=0;runner_loop<=num_iterations-1;runner_loop++) {
 			System.out.println(rand_array);
