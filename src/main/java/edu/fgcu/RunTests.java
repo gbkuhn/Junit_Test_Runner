@@ -75,9 +75,11 @@ public class RunTests{
 			Analyze.fill_array(rand_array, total_num_tests); //fill array list with method numbers
 
 			Analyze.shuffle_arraylist(rand_array);
+			
+			Analyze.sort_desired_must(rand_array);
 
-			//System.out.println(arrayRandom);
-
+			System.out.println(rand_array);
+			
 			for (Method method : obj.getDeclaredMethods()) {
 
 				for(int i=0;i<rand_array.size()-1;i++){

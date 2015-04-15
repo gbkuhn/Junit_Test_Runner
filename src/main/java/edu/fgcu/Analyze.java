@@ -62,15 +62,29 @@ public class Analyze extends Test_class{
 	}
 	
 	public static ArrayList<Integer> sort_desired_must(ArrayList<Integer> rand_array){
-		   for(int i = rand_array.size()-1; i >= 0; i--) {
-		        for(int j = 0; j < 1; j++) {//i
-		            if(rand_array.get(j) > rand_array.get(j + 1)) {
-		                int temp = rand_array.get(j);
-		                rand_array.set(j, rand_array.get(j + 1));
-		                rand_array.set(j + 1, temp);
-		            }
-		        }
-		    }
+		
+		int saved_index1=0;
+		int saved_index2=0;
+		
+		for(int i = rand_array.size()-1; i >= 0; i--) {
+			if(rand_array.get(i)==0){
+				saved_index1 = i;	
+			}
+			if(rand_array.get(i)==1){
+				saved_index2 = i;
+			}
+		}
+		
+		int saved1 = rand_array.get(0);
+		int saved2 = rand_array.get(1);
+		rand_array.set(0, 0);
+		rand_array.set(1, 1);  
+		
+		rand_array.set(saved_index1, saved1);
+		rand_array.set(saved_index2, saved2);
+
+		System.out.println(rand_array);
+		
 		return rand_array;
 	}
 
