@@ -24,6 +24,8 @@ public class RunTests{
 
 	public static int desired_count;
 	public static int must_count;
+	
+	public static double current_free_mem=0;
 
 	/*
     Object obj0 = Class.forName(args[0]).newInstance();
@@ -76,8 +78,12 @@ public class RunTests{
 		
 		Analyze.sort_desired_must(rand_array);
 		//System.out.println(rand_array);
-		
 		Analyze.current_resources();
+		current_free_mem = Analyze.current_memory_usage();
+		
+		System.out.println("Currently free memory: %"+ Double.valueOf(current_free_mem));
+		
+		Analyze.current_memory_usage();
 
 		for(int runner_loop=0;runner_loop<=num_iterations-1;runner_loop++) {
 			System.out.println(rand_array);

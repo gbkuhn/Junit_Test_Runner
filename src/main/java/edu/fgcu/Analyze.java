@@ -19,7 +19,7 @@ public class Analyze extends Test_class{
     public static int passed_subset, failed_subset, count_subset, ignore_subset, before_subset, after_subset, desired_subset;
     public static int passed, failed, count, ignore, before, after, desired;
     public static int current_proc;
-    public static double avail_mem, avail_jvm_mem;
+    public static double avail_mem, total_jvm_mem;
     
     public static void display_info(Class obj){
 
@@ -48,10 +48,18 @@ public class Analyze extends Test_class{
     public static void current_resources(){
     		current_proc = Runtime.getRuntime().availableProcessors();
     		avail_mem = (Runtime.getRuntime().freeMemory()/1048576);
-    		avail_jvm_mem = (Runtime.getRuntime().totalMemory()/1048576);
-    	    System.out.println("Available processors(cores): " + current_proc);
+    		total_jvm_mem = (Runtime.getRuntime().totalMemory()/1048576);
+    	    System.out.println("Available processors(cores): " +current_proc);
     	    System.out.println("Available memory(mb): "+avail_mem);
-    	    System.out.println("Current memory available to JVM (mb): "+avail_jvm_mem+"\n");
+    	    System.out.println("Total memory available to JVM (mb): "+total_jvm_mem+"\n");
+    }
+    
+    public static double current_memory_usage(){
+    	
+    	
+    	double avail = ((avail_mem/total_jvm_mem)*100);
+    	    	
+    	return avail;
     }
     
     public static ArrayList<Integer> fill_array(ArrayList<Integer> rand_array, double total_num_tests){
@@ -153,7 +161,7 @@ public class Analyze extends Test_class{
     
     public static double get_avail_jvm_mem(){
     	
-    	return avail_jvm_mem;
+    	return total_jvm_mem;
     }
   
     public static void set_passed(int passed_buf){
