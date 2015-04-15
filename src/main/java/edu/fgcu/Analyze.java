@@ -83,7 +83,7 @@ public class Analyze extends Test_class{
 		rand_array.set(saved_index1, saved1);
 		rand_array.set(saved_index2, saved2);
 
-		System.out.println(rand_array);
+		//System.out.println(rand_array);
 		
 		return rand_array;
 	}

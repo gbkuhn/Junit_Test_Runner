@@ -67,22 +67,22 @@ public class RunTests{
 		//final_num_runs is the final ammount of test that will be run
 
 		Analyze.display_info(obj);
+		
+		ArrayList<Integer> rand_array = new ArrayList<Integer>();
+
+		Analyze.fill_array(rand_array, total_num_tests); //fill array list with method numbers
+
+		Analyze.shuffle_arraylist(rand_array);
+		
+		Analyze.sort_desired_must(rand_array);
+		//System.out.println(rand_array);
 
 		for(int runner_loop=0;runner_loop<=num_iterations-1;runner_loop++) {
-
-			ArrayList<Integer> rand_array = new ArrayList<Integer>();
-
-			Analyze.fill_array(rand_array, total_num_tests); //fill array list with method numbers
-
-			Analyze.shuffle_arraylist(rand_array);
-			
-			Analyze.sort_desired_must(rand_array);
-
 			System.out.println(rand_array);
 			
 			for (Method method : obj.getDeclaredMethods()) {
 
-				for(int i=0;i<rand_array.size()-1;i++){
+				for(int i=0;i<rand_array.size();i++){
 					int rand_num = rand_array.get(i);
 
 					if(rand_num==0){
@@ -103,7 +103,6 @@ public class RunTests{
 
 								passed++;
 								passed_subset++;
-
 
 							} catch (Throwable ex) {
 								System.out.printf("%s: @Must '%s' -> failed: %s %n", ++count, method.getName(), ex.getCause());

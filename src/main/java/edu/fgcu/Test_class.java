@@ -18,20 +18,21 @@ import org.junit.Test;
 
 public class Test_class {
 	
+    @Must
+    public void must_method_3(){ //
+        //will return a pass
+    }
+	
     @Desired
     public void desired_method_3(){ //
         //will return a pass
     }
     
-    @Must
-    public void must_method_3(){ //
-        //will return a pass
-    }
-
     @Before
     public void before_method_0(){ //
         //Will return as a before+1
     }
+    
 
     @After
     public void after_method_1(){ //
