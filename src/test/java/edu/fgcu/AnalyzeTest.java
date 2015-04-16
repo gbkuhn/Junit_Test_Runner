@@ -8,6 +8,7 @@ import main.java.edu.fgcu.Test_class;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -105,5 +106,49 @@ public class AnalyzeTest {
 		Analyze.display_info(obj);
 	}
 	
+	@Test
+	public void current_resources_test(){
+		Analyze.current_resources();
+	}
+	
+	@Test
+	public void current_memory_usage_test(){
+		Analyze.current_memory_usage();
+	}
+	
+	@Test
+	public void mem_check_test(){
+		Analyze.mem_check();
+	}
+	
+	@Test
+	public void fill_array_test(){
+		double total_num_tests = Analyze.num_of_tests(obj);
+		ArrayList<Integer> testArr = new ArrayList<Integer>();
+		Analyze.fill_array(testArr, total_num_tests);
+	}
+	
+	@Test
+	public void shuffle_arraylist_test(){
+		double total_num_tests = Analyze.num_of_tests(obj);
+		ArrayList<Integer> testArr = new ArrayList<Integer>();
+		testArr = Analyze.fill_array(testArr, total_num_tests);
+		Analyze.shuffle_arraylist(testArr);
+	}
     
+	@Test
+	public void get_current_proc_test(){
+		Analyze.get_current_proc();
+	}
+	
+	@Test
+	public void get_avail_mem_test(){
+		Analyze.get_avail_mem();
+	}
+	
+	@Test
+	public void get_avail_jvm_mem_test(){
+		Analyze.get_avail_jvm_mem();
+	}
+	
 }
