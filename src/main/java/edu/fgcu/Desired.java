@@ -4,6 +4,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import main.java.edu.fgcu.Runner_info.Priority;
+
 /**
  * Created by geoffreykuhn on 3/24/15.
  */
@@ -13,6 +15,12 @@ import java.lang.annotation.Target;
 public @interface Desired {
     String name() default "";
     Class<? extends Throwable> expected() default None.class;
+    
+    public enum Priority {
+        LOW, MEDIUM, HIGH
+    }
+
+    Priority priority() default Priority.MEDIUM;
 
     static class None extends Throwable {
     }
