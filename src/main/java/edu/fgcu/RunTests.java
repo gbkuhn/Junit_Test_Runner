@@ -34,6 +34,13 @@ public class RunTests{
 
 
 	public static void main(String[] args) throws Exception {
+		
+		Analyze.current_resources();
+		current_free_mem = Analyze.current_memory_usage();
+		
+		System.out.println("Currently free memory: %"+ Double.valueOf(current_free_mem)+"\n");
+		
+		Analyze.current_memory_usage();
 
 		System.out.println("Testing Runner Starting...");
 
@@ -78,15 +85,9 @@ public class RunTests{
 		
 		Analyze.sort_desired_must(rand_array);
 		//System.out.println(rand_array);
-		Analyze.current_resources();
-		current_free_mem = Analyze.current_memory_usage();
-		
-		System.out.println("Currently free memory: %"+ Double.valueOf(current_free_mem));
-		
-		Analyze.current_memory_usage();
 
 		for(int runner_loop=0;runner_loop<=num_iterations-1;runner_loop++) {
-			System.out.println(rand_array);
+			//System.out.println(rand_array);
 			
 			for (Method method : obj.getDeclaredMethods()) {
 
@@ -269,6 +270,9 @@ public class RunTests{
 
 			desired_count=desired_stored;//bring back the original value for the next iteration
 			final_num_runs=final_num_runs_stored;//bring back the original value for next iter
+			if(Analyze.mem_check()==false){//if below 10 available memory, will end the cycle
+				break;
+			}
 		}
 		Results.final_report();
 		//Results.percentages();

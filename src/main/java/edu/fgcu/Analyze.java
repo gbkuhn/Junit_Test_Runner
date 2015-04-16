@@ -8,7 +8,6 @@ import java.lang.management.*;
 
 //import com.sun.management.OperatingSystemMXBean;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -61,6 +60,14 @@ public class Analyze extends Test_class{
     	    	
     	return avail;
     }
+    
+	public static boolean mem_check() {
+		if (current_memory_usage()<=10.0){
+			return false;
+		}
+		
+		return true;
+	}
     
     public static ArrayList<Integer> fill_array(ArrayList<Integer> rand_array, double total_num_tests){
 		
@@ -199,4 +206,5 @@ public class Analyze extends Test_class{
 
     	return (double)Math.round(final_num_runs * 1) / 1;
     }
+
 }
