@@ -95,9 +95,10 @@ public class RunTests{
 					int rand_num = rand_array.get(i);
 
 					if(rand_num==0){
-
+							// Order o1 = f1.getAnnotation(Order.class);
 						// if method is annotated with @Must
-						if ((method.isAnnotationPresent(Must.class))&&final_num_runs>0) {
+						Must must0 = method.getAnnotation(Must.class);
+						if ((method.isAnnotationPresent(Must.class))&&final_num_runs>0&&must0.mem_usage()<80) {
 
 							Annotation annotation = method.getAnnotation(Must.class);
 							Must test = (Must) annotation;
@@ -270,6 +271,7 @@ public class RunTests{
 
 			desired_count=desired_stored;//bring back the original value for the next iteration
 			final_num_runs=final_num_runs_stored;//bring back the original value for next iter
+			
 			if(Analyze.mem_check()==false){//if below 10 available memory, will end the cycle
 				break;
 			}

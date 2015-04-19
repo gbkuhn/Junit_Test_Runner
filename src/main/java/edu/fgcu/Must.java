@@ -1,4 +1,5 @@
 package main.java.edu.fgcu;
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,7 +15,10 @@ import main.java.edu.fgcu.Runner_info.Priority;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Must {
-    String name() default "";
+    
+	//int mem_usage = 0;
+
+	String name() default "";
     Class<? extends Throwable> expected() default None.class;
     
     public enum Priority {
@@ -26,4 +30,5 @@ public @interface Must {
     static class None extends Throwable {
     }
 
+	int mem_usage() default 80;
 }

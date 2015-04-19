@@ -13,7 +13,10 @@ import main.java.edu.fgcu.Runner_info.Priority;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Desired {
-    String name() default "";
+    
+	int mem_usage = 80;
+
+	String name() default "";
     Class<? extends Throwable> expected() default None.class;
     
     public enum Priority {
@@ -25,4 +28,6 @@ public @interface Desired {
     static class None extends Throwable {
     }
 
+	int mem_usage() default 100;
+    
 }
