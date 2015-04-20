@@ -18,12 +18,12 @@ import org.junit.Test;
 
 public class Test_class {
 	
-    @Must(mem_usage=80)
+    @Must(mem_usage=10)
     public void must_method_3(){ //
         //will return a pass
     }
 	
-    @Desired(mem_usage=80)
+    @Desired(mem_usage=10)
     public void desired_method_3(){ //
         //will return a pass
     }

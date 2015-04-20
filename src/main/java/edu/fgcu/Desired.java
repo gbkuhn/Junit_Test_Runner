@@ -14,8 +14,6 @@ import main.java.edu.fgcu.Runner_info.Priority;
 @Target(ElementType.METHOD)
 public @interface Desired {
     
-	int mem_usage = 80;
-
 	String name() default "";
     Class<? extends Throwable> expected() default None.class;
     
@@ -28,6 +26,6 @@ public @interface Desired {
     static class None extends Throwable {
     }
 
-	int mem_usage() default 100;
+	public int mem_usage() default 80;
     
 }

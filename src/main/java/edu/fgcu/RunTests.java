@@ -95,10 +95,12 @@ public class RunTests{
 					int rand_num = rand_array.get(i);
 
 					if(rand_num==0){
-							// Order o1 = f1.getAnnotation(Order.class);
 						// if method is annotated with @Must
+						//Order o1 = f1.getAnnotation(Order.class);
+						//System.out.println("must0 mem usage: "+must0.mem_usage());
+						//System.out.println("curruent free mem: "+Double.valueOf(current_free_mem));
 						Must must0 = method.getAnnotation(Must.class);
-						if ((method.isAnnotationPresent(Must.class))&&final_num_runs>0&&must0.mem_usage()<80) {
+						if ((method.isAnnotationPresent(Must.class))&&final_num_runs>0&&must0.mem_usage()>Double.valueOf(current_free_mem)) {
 
 							Annotation annotation = method.getAnnotation(Must.class);
 							Must test = (Must) annotation;
@@ -126,7 +128,8 @@ public class RunTests{
 					if(rand_num==1){
 
 						//process @Desired
-						if ((method.isAnnotationPresent(Desired.class))&&final_num_runs>0) {
+							Desired desired0 = method.getAnnotation(Desired.class);
+							if ((method.isAnnotationPresent(Desired.class))&&final_num_runs>0&&desired0.mem_usage()>Double.valueOf(current_free_mem)) {
 
 							Annotation annotation = method.getAnnotation(Desired.class);
 							Desired test = (Desired) annotation;
