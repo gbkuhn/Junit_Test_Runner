@@ -25,7 +25,7 @@
 	          <excludes>
 	            <exclude>**/*IT.java</exclude>
 	            <exclude>**/IT*.java</exclude>
-	            <include>*/*/*/*/RunTests.java</include>
+	            <exclude>*/*/*/*/RunTests.java</exclude>
 	          </excludes>
 	        </configuration>
       </plugin>
@@ -42,7 +42,6 @@
 		  <includes>
 		     <include>**/*IT.java</include>
 		     <include>**/IT*.java</include>
-		     <include>*/*/*/*/RunTests.java</include>
 		  </includes>
           	</configuration>
               </execution>
